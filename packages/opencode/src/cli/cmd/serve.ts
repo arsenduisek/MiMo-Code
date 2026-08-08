@@ -7,23 +7,23 @@ import { Log } from "../../util"
 export const ServeCommand = cmd({
   command: "serve",
   builder: (yargs) => withNetworkOptions(yargs),
-  describe: "starts a headless mimocode server",
+  describe: "starts a headless nexus server",
   handler: async (args) => {
     const opts = await resolveNetworkOptions(args)
     const isLoopback = opts.hostname === "127.0.0.1" || opts.hostname === "localhost" || opts.hostname === "::1"
 
-    if (!isLoopback && !Flag.MIMOCODE_SERVER_PASSWORD && !opts.noAuth) {
-      console.error("ERROR: Binding to non-loopback address without MIMOCODE_SERVER_PASSWORD is not allowed.")
-      console.error("Set MIMOCODE_SERVER_PASSWORD or pass --no-auth to override (DANGEROUS).")
+    if (!isLoopback && !Flag.NEXUSCODE_SERVER_PASSWORD && !opts.noAuth) {
+      console.error("ERROR: Binding to non-loopback address without NEXUSCODE_SERVER_PASSWORD is not allowed.")
+      console.error("Set NEXUSCODE_SERVER_PASSWORD or pass --no-auth to override (DANGEROUS).")
       await Log.exit(1)
     }
 
-    if (!Flag.MIMOCODE_SERVER_PASSWORD) {
-      console.log("Warning: MIMOCODE_SERVER_PASSWORD is not set; server is unsecured.")
+    if (!Flag.NEXUSCODE_SERVER_PASSWORD) {
+      console.log("Warning: NEXUSCODE_SERVER_PASSWORD is not set; server is unsecured.")
     }
 
     const server = await Server.listen(opts)
-    console.log(`mimocode server listening on http://${server.hostname}:${server.port}`)
+    console.log(`nexus server listening on http://${server.hostname}:${server.port}`)
 
     await new Promise(() => {})
     await server.stop()

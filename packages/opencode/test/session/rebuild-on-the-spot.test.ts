@@ -180,7 +180,7 @@ function countingSpawn(impl: SpawnImpl) {
   }
 }
 
-function mimocodeConfig(baseURL: string, extra?: Record<string, unknown>) {
+function nexusConfig(baseURL: string, extra?: Record<string, unknown>) {
   return JSON.stringify({
     $schema: "https://opencode.ai/config.json",
     enabled_providers: ["alibaba"],
@@ -254,7 +254,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "nexus.json"), nexusConfig(llm.origin)),
         })
 
         await Instance.provide({
@@ -388,7 +388,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "nexus.json"), nexusConfig(llm.origin)),
         })
 
         await withSpawnRef(writer, () =>
@@ -495,7 +495,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "nexus.json"), nexusConfig(llm.origin)),
         })
 
         // Force NO writer: with spawnRef unset, tryStartCheckpointWriter cannot
@@ -584,7 +584,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "nexus.json"), nexusConfig(llm.origin)),
         })
 
         await withSpawnRef(writer, () =>
@@ -658,8 +658,8 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
           git: true,
           init: (dir) =>
             Bun.write(
-              path.join(dir, "mimocode.json"),
-              mimocodeConfig(llm.origin, { memory: { disable_write: true } }),
+              path.join(dir, "nexus.json"),
+              nexusConfig(llm.origin, { memory: { disable_write: true } }),
             ),
         })
 

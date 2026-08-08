@@ -22,7 +22,7 @@ import { Todo } from "../../src/session/todo"
 import { Session } from "../../src/session"
 import { LLM } from "../../src/session/llm"
 import { MessageV2 } from "../../src/session/message-v2"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@nexus-code/shared/filesystem"
 import { SessionPrune } from "../../src/session/prune"
 import { SessionSummary } from "../../src/session/summary"
 import { Instruction } from "../../src/session/instruction"
@@ -356,7 +356,7 @@ let lifecycleToolStarted: Deferred.Deferred<void> | undefined
 let lifecycleToolGate: Deferred.Deferred<void> | undefined
 const lifecycleClient = {
   getServerCapabilities: () => ({
-    experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+    experimental: { "com.gemini.nexus/turn-lifecycle": { version: 1 } },
   }),
   notification: async (notification: Record<string, any>) => {
     if (lifecycleNotificationHangs) return new Promise<void>(() => {})
@@ -709,7 +709,7 @@ it.live("injects orchestrator system prompt for agent 'orchestrator'", () =>
       yield* prompt.loop({ sessionID: session.id })
 
       const inputs = yield* llm.inputs
-      expect(JSON.stringify(inputs)).toContain("MiMoCode Orchestrator")
+      expect(JSON.stringify(inputs)).toContain("NexusCode Orchestrator")
     }),
     { git: true, config: providerCfg },
   ),
@@ -1400,7 +1400,7 @@ lifecycleMcpIt.live("MCP calls in one outer run share one turn and emit one term
       expect(lifecycleContexts[1]).toEqual(lifecycleContexts[0])
       expect(lifecycleNotifications).toEqual([
         {
-          method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+          method: "notifications/com.gemini.nexus/turn-lifecycle",
           params: { ...lifecycleContexts[0], status: "completed" },
         },
       ])
@@ -1481,7 +1481,7 @@ lifecycleMcpIt.live(
 
         expect(lifecycleNotifications).toHaveLength(1)
         expect(lifecycleNotifications[0]).toMatchObject({
-          method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+          method: "notifications/com.gemini.nexus/turn-lifecycle",
           params: { sessionId: session.id, actorId: "main", status: "cancelled" },
         })
         expect(lifecycleNotifications[0]?.params?.turnId).toBeTruthy()
@@ -1507,7 +1507,7 @@ lifecycleMcpIt.live("MCP lifecycle emits one error notification when the outer r
 
       expect(lifecycleNotifications).toHaveLength(1)
       expect(lifecycleNotifications[0]).toMatchObject({
-        method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+        method: "notifications/com.gemini.nexus/turn-lifecycle",
         params: { sessionId: session.id, actorId: "main", status: "error" },
       })
       expect(lifecycleNotifications[0]?.params?.turnId).toBeTruthy()

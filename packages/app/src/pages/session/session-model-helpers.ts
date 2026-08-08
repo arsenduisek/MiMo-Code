@@ -1,4 +1,4 @@
-import type { UserMessage } from "@mimo-ai/sdk/v2"
+import type { UserMessage } from "@nexus-code/sdk/v2"
 
 type Local = {
   session: {

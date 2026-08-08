@@ -1,4 +1,4 @@
-import type { Event } from "@mimo-ai/sdk/v2"
+import type { Event } from "@nexus-code/sdk/v2"
 import { useProject } from "./project"
 import { useSDK } from "./sdk"
 

@@ -178,7 +178,7 @@ describe("session.system", () => {
       }),
     )[0]
 
-    expect(prompt).toContain("You are MiMoCode, an agent based on the GPT-5 family")
+    expect(prompt).toContain("You are NexusCode, an agent based on the GPT-5 family")
   })
 
   test("does not inject vision capability guidance for GPT, Claude, or Gemini models", async () => {
@@ -264,7 +264,7 @@ describe("session.system", () => {
           ["alpha-skill", "Alpha skill."],
           ["middle-skill", "Middle skill."],
         ]) {
-          const skillDir = path.join(dir, ".mimocode", "skill", name)
+          const skillDir = path.join(dir, ".nexus", "skill", name)
           await Bun.write(
             path.join(skillDir, "SKILL.md"),
             `---
@@ -327,7 +327,7 @@ description: ${description}
             return yield* Effect.all([
               system.skills(build!, { id: "gpt-5.4" }),
               system.skills(build!, { id: "claude-sonnet-4-6" }),
-              system.skills(build!, { id: "mimo-v2" }),
+              system.skills(build!, { id: "nexus-v2" }),
             ])
           }).pipe(Effect.provide(SystemPrompt.defaultLayer)),
         )

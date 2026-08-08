@@ -1,42 +1,42 @@
-# MiMoCode Configuration Reference
+# NexusCode Configuration Reference
 
 ## File locations & precedence
 
-Config is JSON or JSONC. MiMoCode discovers it by walking up from the cwd to the worktree root, then falls back to global.
+Config is JSON or JSONC. NexusCode discovers it by walking up from the cwd to the worktree root, then falls back to global.
 
-- Project: `.mimocode/mimocode.json` or `.mimocode/mimocode.jsonc`
-- Global: `~/.config/mimocode/mimocode.jsonc` or `mimocode.json` (XDG config dir). New installs seed `mimocode.jsonc`.
-- Extra config dirs are also searched via `$MIMOCODE_CONFIG_DIR`.
+- Project: `.nexus/nexus.json` or `.nexus/nexus.jsonc`
+- Global: `~/.config/nexus/nexus.jsonc` or `nexus.json` (XDG config dir). New installs seed `nexus.jsonc`.
+- Extra config dirs are also searched via `$NEXUSCODE_CONFIG_DIR`.
 
-Project config merges **over** global. Always include `"$schema": "https://mimo.xiaomi.com/mimocode/config.json"` for validation.
+Project config merges **over** global. Always include `"$schema": "https://github.com/arsenduisek/Nexus-Code/docs/config.json"` for validation.
 
 ## On-disk data layout
 
-Base directories resolve from `MIMOCODE_HOME` if set (must be absolute → `<home>/{data,cache,config,state}`), otherwise from XDG:
+Base directories resolve from `NEXUSCODE_HOME` if set (must be absolute → `<home>/{data,cache,config,state}`), otherwise from XDG:
 
 | Kind | Default location | Holds |
 |------|------------------|-------|
-| data | `~/.local/share/mimocode/` | memory, logs, `builtin_skills/<version>/`, bin |
-| config | `~/.config/mimocode/` | global `mimocode.jsonc` / `mimocode.json` |
-| cache | `~/.cache/mimocode/` | caches, downloaded bins |
-| state | `~/.local/state/mimocode/` | runtime state, including TUI recent/favorite models in `model.json` |
+| data | `~/.local/share/nexus/` | memory, logs, `builtin_skills/<version>/`, bin |
+| config | `~/.config/nexus/` | global `nexus.jsonc` / `nexus.json` |
+| cache | `~/.cache/nexus/` | caches, downloaded bins |
+| state | `~/.local/state/nexus/` | runtime state, including TUI recent/favorite models in `model.json` |
 
-Memory files live under `~/.local/share/mimocode/memory/`:
+Memory files live under `~/.local/share/nexus/memory/`:
 - `projects/global/MEMORY.md` — project memory
 - `sessions/<id>/checkpoint.md`, `notes.md`, `tasks/<id>/progress.md`
 - `global/MEMORY.md` — cross-project user preferences
 
 ## Environment variables & flags
 
-- `MIMOCODE_HOME` — override all base dirs (absolute path).
-- `MIMOCODE_CONFIG_DIR` — extra config directory to search.
-- `MIMOCODE_PURE` — run without external plugins (same as `mimo --pure`). Does **not** change models or Claude Code inheritance.
-- `MIMOCODE_MIMO_ONLY` — pure-MiMo mode: don't inherit Claude Code settings (CLAUDE.md, `~/.claude/skills`), don't read provider API keys from env, fall back to the mimo-auto model.
-- `MIMOCODE_DISABLE_LOG_ROTATION` — keep a single growing log file instead of rotating.
-- `MIMOCODE_TEXT_TOOL_CALL_RETRY_LIMIT` — retries when a model emits a tool call as prose markup instead of a structured call (default 2).
-- `MIMOCODE_EXPERIMENTAL_CRON` — scheduled prompts (cron/loop); **on by default**. `MIMOCODE_DISABLE_CRON` kills it at runtime. Tune loop keepalive with `MIMOCODE_LOOP_KEEPALIVE_BUDGET` (default 1) and `MIMOCODE_LOOP_KEEPALIVE_DELAY_S` (default 1200).
-- `MIMOCODE_EXPERIMENTAL_TOKEN_EFFICIENCY_HEURISTIC` — shape-based compaction of bash output to save tokens; off by default.
-- `MIMOCODE_DISABLE_BUILTIN_SKILLS`, `_COMPOSE_SKILLS`, `_EXTERNAL_SKILLS`, `_CLAUDE_CODE_SKILLS`, `_CODEX_SKILLS`, `_OPENCODE_SKILLS`, `_PROJECT_CONFIG`, `_CLAUDE_IMPORT` — feature toggles.
+- `NEXUSCODE_HOME` — override all base dirs (absolute path).
+- `NEXUSCODE_CONFIG_DIR` — extra config directory to search.
+- `NEXUSCODE_PURE` — run without external plugins (same as `nexus --pure`). Does **not** change models or Claude Code inheritance.
+- `NEXUSCODE_NEXUS_ONLY` — pure-Nexus mode: don't inherit Claude Code settings (CLAUDE.md, `~/.claude/skills`), don't read provider API keys from env, fall back to the nexus-auto model.
+- `NEXUSCODE_DISABLE_LOG_ROTATION` — keep a single growing log file instead of rotating.
+- `NEXUSCODE_TEXT_TOOL_CALL_RETRY_LIMIT` — retries when a model emits a tool call as prose markup instead of a structured call (default 2).
+- `NEXUSCODE_EXPERIMENTAL_CRON` — scheduled prompts (cron/loop); **on by default**. `NEXUSCODE_DISABLE_CRON` kills it at runtime. Tune loop keepalive with `NEXUSCODE_LOOP_KEEPALIVE_BUDGET` (default 1) and `NEXUSCODE_LOOP_KEEPALIVE_DELAY_S` (default 1200).
+- `NEXUSCODE_EXPERIMENTAL_TOKEN_EFFICIENCY_HEURISTIC` — shape-based compaction of bash output to save tokens; off by default.
+- `NEXUSCODE_DISABLE_BUILTIN_SKILLS`, `_COMPOSE_SKILLS`, `_EXTERNAL_SKILLS`, `_CLAUDE_CODE_SKILLS`, `_CODEX_SKILLS`, `_OPENCODE_SKILLS`, `_PROJECT_CONFIG`, `_CLAUDE_IMPORT` — feature toggles.
 
 ## Top-level config keys
 
@@ -61,14 +61,14 @@ Each group maps a name to either a single default model (string shorthand) or an
 
 ```jsonc
 {
-  "$schema": "https://mimo.xiaomi.com/mimocode/config.json",
+  "$schema": "https://github.com/arsenduisek/Nexus-Code/docs/config.json",
   "model_groups": {
     // string shorthand: the group IS its default model
     "lite": "anthropic/claude-haiku",
     // object form: a default plus alternates on other providers
     "standard": {
       "default": "anthropic/claude-sonnet",
-      "models": ["anthropic/claude-sonnet", "openrouter/xiaomi/mimo-v2.5"]
+      "models": ["anthropic/claude-sonnet", "openrouter/gemini/nexus-v2.5"]
     },
     "ultra": "anthropic/claude-opus-4-8"
   },
@@ -78,7 +78,7 @@ Each group maps a name to either a single default model (string shorthand) or an
 
 **Resolution rules:**
 - A ref containing `/` is a literal `provider/model` and is used as-is.
-- A ref without `/` is a group name. If configured, MiMoCode is **provider-aware**: it prefers a member on the caller's current provider, otherwise falls back to the group's `default`.
+- A ref without `/` is a group name. If configured, NexusCode is **provider-aware**: it prefers a member on the caller's current provider, otherwise falls back to the group's `default`.
 - `ultra`, `standard`, `lite` are **built-in tier names**. If you reference one but haven't configured it, it silently falls back to the default model (zero-config never errors).
 - Any other unconfigured name errors with fuzzy suggestions of your defined groups.
 - Cheap-task (small) model: **configure the `lite` group** — that is the recommended path. The legacy `small_model` literal, if set, still takes precedence for back-compat, but is not recommended for new configs.
@@ -92,7 +92,7 @@ Use groups when you want one label (`"standard"`) to map to different concrete m
 | `agent` | Per-agent config: `plan`, `build`, `general`, `explore`, `title`, `summary`, `compaction`, plus custom |
 | `username` | Display name in conversations |
 
-Prefer a markdown file (`.mimocode/agent/<name>.md`, body = system prompt) for defining a custom agent/mode — see the "Custom agents & modes" section in @guide.md. Use the `agent` config key for short, inline per-agent overrides.
+Prefer a markdown file (`.nexus/agent/<name>.md`, body = system prompt) for defining a custom agent/mode — see the "Custom agents & modes" section in @guide.md. Use the `agent` config key for short, inline per-agent overrides.
 
 ### Tools, skills, MCP, extensions
 | Key | Purpose |
@@ -109,9 +109,9 @@ Prefer a markdown file (`.mimocode/agent/<name>.md`, body = system prompt) for d
 
 ### Context management
 
-As context fills, MiMoCode auto-checkpoints (a background writer distills the conversation into `checkpoint.md`) and, near the limit, **rebuilds**: it inserts a boundary at the last successful checkpoint so earlier messages collapse to the checkpoint summary while recent messages are kept verbatim. If a checkpoint writer is still running when a rebuild is needed, the rebuild waits for it (with a visible "Preparing conversation context…" status) — briefly when a usable checkpoint already exists, longer for the very first one — then proceeds; if no checkpoint can be produced it falls back to lossy compaction. You can trigger a rebuild yourself any time with the `/rebuild` slash command.
+As context fills, NexusCode auto-checkpoints (a background writer distills the conversation into `checkpoint.md`) and, near the limit, **rebuilds**: it inserts a boundary at the last successful checkpoint so earlier messages collapse to the checkpoint summary while recent messages are kept verbatim. If a checkpoint writer is still running when a rebuild is needed, the rebuild waits for it (with a visible "Preparing conversation context…" status) — briefly when a usable checkpoint already exists, longer for the very first one — then proceeds; if no checkpoint can be produced it falls back to lossy compaction. You can trigger a rebuild yourself any time with the `/rebuild` slash command.
 
-The trigger is the model's prompt capacity (`limit.input` when the provider publishes one, else `limit.context`) minus the reserves, optionally lowered by `compaction.max_context`. `mimo models <provider>` prints the resolved window and the trigger per model, and `/status` shows both plus the current usage. Two things users hit here: a model's usable window depends on the route (ChatGPT/Codex subscription vs direct API key vs a reseller like OpenRouter can all differ for the same model name, and a 1M catalog figure does not mean the route serves 1M), and providers may price very long prompts higher (OpenAI charges 2x input / 1.5x output for GPT-5.6 requests above 272K input) — `compaction.max_context` is the knob for both.
+The trigger is the model's prompt capacity (`limit.input` when the provider publishes one, else `limit.context`) minus the reserves, optionally lowered by `compaction.max_context`. `nexus models <provider>` prints the resolved window and the trigger per model, and `/status` shows both plus the current usage. Two things users hit here: a model's usable window depends on the route (ChatGPT/Codex subscription vs direct API key vs a reseller like OpenRouter can all differ for the same model name, and a 1M catalog figure does not mean the route serves 1M), and providers may price very long prompts higher (OpenAI charges 2x input / 1.5x output for GPT-5.6 requests above 272K input) — `compaction.max_context` is the knob for both.
 
 | Key | Purpose |
 |-----|---------|
@@ -135,8 +135,8 @@ The trigger is the model's prompt capacity (`limit.input` when the provider publ
 |-----|---------|
 | `dream.auto` / `dream.interval_days` | Auto memory consolidation on session start (default true / 7 days) |
 | `distill.auto` / `distill.interval_days` | Auto workflow packaging (default true / 30 days) |
-| `voice.asr_model` | ASR model (default `xiaomi/mimo-v2.5-asr`) |
-| `voice.control_model` | Voice control model (default `xiaomi/mimo-v2.5`) |
+| `voice.asr_model` | ASR model (default `gemini/nexus-v2.5-asr`) |
+| `voice.control_model` | Voice control model (default `gemini/nexus-v2.5`) |
 | `compose` | Compose mode config (`docs` dir default `docs/compose`, `docs_absolute`) |
 | `workflow.maxConcurrentAgents` | Process-wide subagent concurrency ceiling (default min(16, 2×cores)) |
 | `workflow.maxDepth` | Max workflow nesting depth (default 8) |
@@ -158,14 +158,14 @@ The trigger is the model's prompt capacity (`limit.input` when the provider publ
 | `share` | `"manual"` / `"auto"` / `"disabled"` |
 | `snapshot` | Filesystem snapshot tracking for undo/redo (default true) |
 | `logLevel` | Log verbosity |
-| `server` | Config for `mimo serve` |
+| `server` | Config for `nexus serve` |
 | `enterprise.url` | Enterprise endpoint |
 
 ## Example: common tweaks
 
 ```jsonc
 {
-  "$schema": "https://mimo.xiaomi.com/mimocode/config.json",
+  "$schema": "https://github.com/arsenduisek/Nexus-Code/docs/config.json",
   "model": "anthropic/claude-opus-4-8",
   "model_groups": { "lite": "anthropic/claude-haiku" },
   "dream": { "auto": true, "interval_days": 3 },

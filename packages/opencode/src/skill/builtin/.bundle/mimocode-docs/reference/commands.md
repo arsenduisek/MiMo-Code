@@ -1,41 +1,41 @@
-# MiMoCode Commands Reference
+# NexusCode Commands Reference
 
-## CLI (`mimo <command>`)
+## CLI (`nexus <command>`)
 
-Invoked from the shell. `mimo` with no command opens the TUI.
+Invoked from the shell. `nexus` with no command opens the TUI.
 
 | Command | Purpose |
 |---------|---------|
-| `mimo` | Launch the interactive TUI |
-| `mimo run` | Headless, non-interactive run (scripting/eval) |
-| `mimo mcp` | Manage / inspect MCP servers |
-| `mimo agent` | Manage agents |
-| `mimo models` | List available models |
-| `mimo providers` | List / manage providers |
-| `mimo account` (console) | Account / login console |
-| `mimo upgrade` | Update to the latest version |
-| `mimo uninstall` | Uninstall MiMoCode |
-| `mimo serve` | Run the server |
-| `mimo stats` | Usage statistics |
-| `mimo export` / `mimo import` | Export / import sessions |
-| `mimo session` | Manage sessions |
-| `mimo github` / `mimo pr` | GitHub / pull-request integration |
-| `mimo generate` | Code generation entry |
-| `mimo plugin` (plug) | Manage plugins |
-| `mimo db` | Database utilities |
-| `mimo acp` / `mimo attach` | ACP / attach to a running session |
-| `mimo debug` | Debug utilities |
-| `mimo completion` | Generate shell completion script |
+| `nexus` | Launch the interactive TUI |
+| `nexus run` | Headless, non-interactive run (scripting/eval) |
+| `nexus mcp` | Manage / inspect MCP servers |
+| `nexus agent` | Manage agents |
+| `nexus models` | List available models |
+| `nexus providers` | List / manage providers |
+| `nexus account` (console) | Account / login console |
+| `nexus upgrade` | Update to the latest version |
+| `nexus uninstall` | Uninstall NexusCode |
+| `nexus serve` | Run the server |
+| `nexus stats` | Usage statistics |
+| `nexus export` / `nexus import` | Export / import sessions |
+| `nexus session` | Manage sessions |
+| `nexus github` / `nexus pr` | GitHub / pull-request integration |
+| `nexus generate` | Code generation entry |
+| `nexus plugin` (plug) | Manage plugins |
+| `nexus db` | Database utilities |
+| `nexus acp` / `nexus attach` | ACP / attach to a running session |
+| `nexus debug` | Debug utilities |
+| `nexus completion` | Generate shell completion script |
 
-Run `mimo <command> --help` for flags on any command.
+Run `nexus <command> --help` for flags on any command.
 
 Notable TUI flags: `--continue`/`-c` (resume last session), `--session`/`-s`, `--model`/`-m`, `--agent`, `--never-ask`, `--trust`, and `--dangerously-skip-permissions` (auto-approve everything not explicitly denied; prompts once for confirmation — see permissions.md).
 
-For terminal compatibility, TUI rendering or lag, and local rendering over SSH with `mimo serve` + `mimo attach`, see @guide.md.
+For terminal compatibility, TUI rendering or lag, and local rendering over SSH with `nexus serve` + `nexus attach`, see @guide.md.
 
 ## Slash commands (inside the TUI)
 
-Type `/` to see the commands available in the current context. You can also ask in chat, for example, “Which slash commands can I use?” or “How do I switch models?” MiMoCode will explain the relevant command without requiring you to remember its name.
+Type `/` to see the commands available in the current context. You can also ask in chat, for example, “Which slash commands can I use?” or “How do I switch models?” NexusCode will explain the relevant command without requiring you to remember its name.
 
 Most client commands run only when the whole input is the command. `/btw <question>` and prompt commands that accept arguments are the exceptions.
 
@@ -53,9 +53,9 @@ Most client commands run only when the whole input is the command. `/btw <questi
 | `/skip-permissions` | — | Toggle runtime auto-allow for permission asks; explicit denies still block |
 | `/mcps` | — | Show MCP server status |
 | `/variants` | — | Switch model variants; shown only when variants are available |
-| `/login` | — | Sign in to Xiaomi MiMo |
+| `/login` | — | Sign in to Nexus Nexus |
 | `/connect` | — | Connect or sign in to a model provider |
-| `/logout` | — | Sign out of Xiaomi MiMo |
+| `/logout` | — | Sign out of Nexus Nexus |
 | `/org` | `/orgs`, `/switch-org` | Switch organizations; shown when more than one organization is available |
 | `/status` | — | Show system and session status |
 | `/worktree` | `/wt` | List and switch worktrees |
@@ -67,7 +67,7 @@ Most client commands run only when the whole input is the command. `/btw <questi
 | `/light` | — | Switch to light mode |
 | `/help` | — | Open command help |
 | `/doc` | `/docs` | Open the user documentation |
-| `/exit` | `/quit`, `/q` | Exit MiMoCode |
+| `/exit` | `/quit`, `/q` | Exit NexusCode |
 | `/language` | `/lang` | Switch the TUI language |
 
 ### Prompt commands
@@ -77,7 +77,7 @@ Most client commands run only when the whole input is the command. `/btw <questi
 | `/editor` | Edit the current prompt in an external editor |
 | `/skills` | Browse and select available skills |
 | `/revoke-consent` | Revoke consent for the free service |
-| `/voice` | Toggle streaming voice input (requires `sox` and a MiMo login) |
+| `/voice` | Toggle streaming voice input (requires `sox` and a Nexus login) |
 | `/voice-send` | Toggle sending transcribed voice input automatically |
 | `/voice-control` | Toggle voice control |
 
@@ -136,4 +136,4 @@ The slash menu also includes commands discovered at runtime:
 ## Notes
 
 - The web command is currently disabled; TUI is the supported interface.
-- Voice ASR (`mimo-v2.5-asr`) is MiMo-platform only; voice control (`mimo-v2.5`) also runs on OpenRouter and compatible relays via the `voice` config (see config.md and the README voice section).
+- Voice ASR (`nexus-v2.5-asr`) is Nexus-platform only; voice control (`nexus-v2.5`) also runs on OpenRouter and compatible relays via the `voice` config (see config.md and the README voice section).

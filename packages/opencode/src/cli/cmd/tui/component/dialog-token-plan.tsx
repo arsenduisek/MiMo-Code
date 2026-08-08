@@ -7,10 +7,10 @@ import { useToast } from "@tui/ui/toast"
 import * as Clipboard from "@tui/util/clipboard"
 import { useDialog, type DialogContext } from "@tui/ui/dialog"
 
-const TOKEN_PLAN_URL = "https://platform.xiaomimimo.com/token-plan"
+const TOKEN_PLAN_URL = "https://console.cloud.google.com/token-plan"
 
-// Shown once per 24h when the free "mimo-auto" channel hits a rate limit /
-// queue ("too many requests"). Modeled on DialogAgreement (same medium width).
+// Shown once per 24h when a request hits a rate limit / queue
+// ("too many requests"). Modeled on DialogAgreement (same medium width).
 export function DialogTokenPlan(props: { onClose?: () => void }) {
   const dialog = useDialog()
   const { theme } = useTheme()

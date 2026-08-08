@@ -2,9 +2,9 @@ import { describe, expect, test } from "bun:test"
 import path from "path"
 import { ConfigMarkdown } from "../../src/config"
 
-const root = path.resolve(import.meta.dir, "../../src/skill/builtin/.bundle/mimocode-docs")
+const root = path.resolve(import.meta.dir, "../../src/skill/builtin/.bundle/nexus-docs")
 
-describe("mimocode-docs provider guidance", () => {
+describe("nexus-docs provider guidance", () => {
   test("routes provider requests to the dedicated reference", async () => {
     const skill = await Bun.file(path.join(root, "SKILL.md")).text()
 
@@ -22,7 +22,7 @@ describe("mimocode-docs provider guidance", () => {
     expect(providers).toContain("Do not substitute `@ai-sdk/compatible-openai`")
     expect(providers).toContain("If the endpoint matches but the supplied credential differs, create a distinct provider ID")
     expect(providers).toContain("Do not guess `limit.context`, `limit.output`")
-    expect(providers).toContain("mimo models PROVIDER_ID")
+    expect(providers).toContain("nexus models PROVIDER_ID")
   })
 
   test("documents native Anthropic Messages API configuration", async () => {
@@ -38,8 +38,8 @@ describe("mimocode-docs provider guidance", () => {
   test("documents the effective global config precedence", async () => {
     const providers = await Bun.file(path.join(root, "reference/providers.md")).text()
 
-    expect(providers).toContain("`config.json`, `mimocode.json`, then `mimocode.jsonc`; later files win")
-    expect(providers).toContain("create `mimocode.jsonc` when none exists")
+    expect(providers).toContain("`config.json`, `nexus.json`, then `nexus.jsonc`; later files win")
+    expect(providers).toContain("create `nexus.jsonc` when none exists")
   })
 
   test("keeps a newly configured API model in TUI recents without clobbering state", async () => {
@@ -49,17 +49,17 @@ describe("mimocode-docs provider guidance", () => {
 
     expect(skill).toContain("put that exact `provider/model` at the front of the TUI recent-model state")
     expect(config).toContain("TUI recent/favorite models in `model.json`")
-    expect(providers).toContain("$MIMOCODE_HOME/state/model.json")
+    expect(providers).toContain("$NEXUSCODE_HOME/state/model.json")
     expect(providers).toContain("Respect `XDG_STATE_HOME`")
     expect(providers).toContain("Preserve every top-level field, especially `favorite` and `variant`")
     expect(providers).toContain("remove any later entry with the same `providerID` and `modelID`")
     expect(providers).toContain("keep at most 10 entries")
-    expect(providers).toContain("Write the recent state only after `mimo models PROVIDER_ID`")
+    expect(providers).toContain("Write the recent state only after `nexus models PROVIDER_ID`")
     expect(providers).toContain("Never put the API key, base URL, display name, or combined `provider/model` string")
   })
 })
 
-describe("mimocode-docs TUI troubleshooting", () => {
+describe("nexus-docs TUI troubleshooting", () => {
   test("routes rendering issues to actionable terminal and SSH guidance", async () => {
     const skill = await ConfigMarkdown.parse(path.join(root, "SKILL.md"))
     const guide = await Bun.file(path.join(root, "reference/guide.md")).text()
@@ -69,9 +69,9 @@ describe("mimocode-docs TUI troubleshooting", () => {
     expect(skill.content).toContain("Terminal compatibility, TUI rendering or lag, and SSH remote use")
     expect(guide).toContain("does not support the built-in Terminal.app")
     expect(guide).toContain("brew install --cask iterm2")
-    expect(guide).toContain("mimo serve --port 4096")
+    expect(guide).toContain("nexus serve --port 4096")
     expect(guide).toContain("ssh -N -L 4096:127.0.0.1:4096 user@remote-host")
-    expect(guide).toContain("mimo attach http://127.0.0.1:4096")
+    expect(guide).toContain("nexus attach http://127.0.0.1:4096")
     expect(guide).toContain("switch between Vivid and Minimal visuals as needed")
     expect(guide).toContain("visual-mode option in `ctrl+p`")
     expect(guide).toContain("separate animation override")
@@ -87,7 +87,7 @@ describe("mimocode-docs TUI troubleshooting", () => {
  * `patterns: [server]`), and the page's own example uses the glob-map form, so
  * listing it as action-only contradicted the example two paragraphs below it.
  */
-describe("mimocode-docs permission arity", () => {
+describe("nexus-docs permission arity", () => {
   test("classifies mcp_sampling as glob-keyed, not action-only", async () => {
     const permissions = await Bun.file(path.join(root, "reference/permissions.md")).text()
 
@@ -101,7 +101,7 @@ describe("mimocode-docs permission arity", () => {
     // section is otherwise about paths and commands.
     expect(permissions).toContain("except for `mcp_sampling`, where it is the MCP server name")
     // The example that the old classification contradicted must still be present.
-    expect(permissions).toContain('"mcp_sampling": { "*": "ask", "mimo-cut": "allow" }')
+    expect(permissions).toContain('"mcp_sampling": { "*": "ask", "nexus-cut": "allow" }')
   })
 
   test("states that a permission deny outranks mcp.<server>.sampling allow", async () => {

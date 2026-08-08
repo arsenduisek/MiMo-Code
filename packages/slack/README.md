@@ -1,4 +1,4 @@
-# @mimo-ai/slack
+# @nexus-code/slack
 
 Slack bot integration for opencode that creates threaded conversations.
 

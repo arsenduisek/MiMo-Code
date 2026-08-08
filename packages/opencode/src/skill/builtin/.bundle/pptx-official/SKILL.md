@@ -30,7 +30,7 @@ If the task mixes several of these, do them in this order:
 
 ## One-time environment setup
 
-> **Bundled runtime:** when the `MIMO_PYTHON` environment variable is set, skip `uv`/pip installs — run every Python command below with `uv run` replaced by `"$MIMO_PYTHON"` (python-pptx/Pillow/lxml preinstalled; pip console scripts unavailable, use `"$MIMO_PYTHON" -m <module>`). A bundled LibreOffice is exposed as `MIMO_SOFFICE` (picked up automatically by `soffice_bridge.py`/`render_pdf.py`), and slide rasterisation automatically falls back to pypdfium2 in that interpreter when Poppler (`pdftoppm`) is absent. For the PptxGenJS authoring path, bundled Node.js is exposed as `MIMO_NODE`, with pptxgenjs/react/react-dom/sharp/react-icons/mathjax-full preinstalled in `MIMO_NODE_MODULES` — run scripts as `NODE_PATH="$MIMO_NODE_MODULES" "$MIMO_NODE" <script.js>` instead of `npm install`.
+> **Bundled runtime:** when the `NEXUS_PYTHON` environment variable is set, skip `uv`/pip installs — run every Python command below with `uv run` replaced by `"$NEXUS_PYTHON"` (python-pptx/Pillow/lxml preinstalled; pip console scripts unavailable, use `"$NEXUS_PYTHON" -m <module>`). A bundled LibreOffice is exposed as `NEXUS_SOFFICE` (picked up automatically by `soffice_bridge.py`/`render_pdf.py`), and slide rasterisation automatically falls back to pypdfium2 in that interpreter when Poppler (`pdftoppm`) is absent. For the PptxGenJS authoring path, bundled Node.js is exposed as `NEXUS_NODE`, with pptxgenjs/react/react-dom/sharp/react-icons/mathjax-full preinstalled in `NEXUS_NODE_MODULES` — run scripts as `NODE_PATH="$NEXUS_NODE_MODULES" "$NEXUS_NODE" <script.js>` instead of `npm install`.
 
 ### Prerequisites
 
@@ -177,8 +177,8 @@ A live preview server is available for real-time slide feedback.
 if they want live preview enabled.
 
 **Only offer this in a pure command-line environment.** This server is
-for the MiMoCode CLI. If you are running inside a host that embeds
-MiMoCode via the SDK — a web UI, a desktop app, an IDE plugin, etc. —
+for the NexusCode CLI. If you are running inside a host that embeds
+NexusCode via the SDK — a web UI, a desktop app, an IDE plugin, etc. —
 that host almost certainly has its own native preview / file-open
 mechanism; use it instead and do NOT start this server.
 

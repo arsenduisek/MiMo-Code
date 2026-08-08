@@ -2,14 +2,10 @@ import z from "zod"
 import { Effect } from "effect"
 import { HttpClient } from "effect/unstable/http"
 import * as Tool from "../tool"
-import * as McpExa from "../mcp-exa"
-import * as MimoWebsearch from "./mimo"
-import { Auth } from "@/auth"
-import { Provider } from "@/provider"
+import * as DdgWebsearch from "./nexus"
 import DESCRIPTION from "./websearch.txt"
 
-const WEBFETCH_FALLBACK =
-  "Web search unavailable. Use `webfetch` with a relevant URL instead, or enable the Web Search plugin at https://platform.xiaomimimo.com/console/plugin."
+const WEBFETCH_FALLBACK = "Web search unavailable. Use `webfetch` with a relevant URL instead."
 const MAX_TIMEOUT = 120 * 1000 // 2 minutes
 
 const Parameters = z.object({
@@ -36,7 +32,6 @@ export const WebSearchTool = Tool.define(
   "websearch",
   Effect.gen(function* () {
     const http = yield* HttpClient.HttpClient
-    const auth = yield* Auth.Service
 
     return {
       get description() {
@@ -59,39 +54,14 @@ export const WebSearchTool = Tool.define(
             },
           })
 
-          const model = (ctx.extra as { model?: Provider.Model })?.model
           const timeout = params.timeout === undefined ? undefined : Math.min(params.timeout * 1000, MAX_TIMEOUT)
 
-          const result =
-            model?.providerID === "xiaomi"
-              ? yield* Effect.catchCause(
-                  Effect.gen(function* () {
-                    const info = yield* auth.get("xiaomi")
-                    if (!info || info.type !== "api") return undefined
-                    return yield* MimoWebsearch.call(
-                      http,
-                      model.api.url,
-                      info.key,
-                      params.query,
-                      "mimo-v2.5",
-                      timeout ?? "30 seconds",
-                    )
-                  }),
-                  () => Effect.succeed(undefined),
-                )
-              : yield* McpExa.call(
-                  http,
-                  "web_search_exa",
-                  McpExa.SearchArgs,
-                  {
-                    query: params.query,
-                    type: params.type || "auto",
-                    numResults: params.numResults || 8,
-                    livecrawl: params.livecrawl || "fallback",
-                    contextMaxCharacters: params.contextMaxCharacters,
-                  },
-                  timeout ?? "25 seconds",
-                )
+          const result = yield* Effect.catchCause(
+            Effect.gen(function* () {
+              return yield* DdgWebsearch.call(http, "", "", params.query, "", timeout ?? "30 seconds")
+            }),
+            () => Effect.succeed(undefined),
+          )
 
           return {
             output: result ?? WEBFETCH_FALLBACK,

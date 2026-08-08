@@ -7,7 +7,7 @@
  *
  * Not meant to be run directly — use preview.ts to start/stop.
  *
- * SCOPE: for the MiMoCode CLI only. GUI hosts embedding MiMoCode via
+ * SCOPE: for the NexusCode CLI only. GUI hosts embedding NexusCode via
  * the SDK should use their own native preview mechanism instead.
  *
  * PATHS: this script sits in the skill's bundle directory, not

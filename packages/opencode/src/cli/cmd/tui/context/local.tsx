@@ -213,12 +213,11 @@ export const { use: useLocal, provider: LocalProvider } = createSimpleContext({
         })
         if (initial || !modelStore.ready) return initial
 
-        // No args/recent/config match: prefer the free mimo-auto channel so a
-        // clean install defaults to a usable free model rather than whatever
-        // provider happens to sit first (e.g. paid xiaomi/ultraspeed).
-        const mimo = sync.data.provider.find((p) => p.id === "mimo")
-        if (mimo && "mimo-auto" in mimo.models) {
-          return { providerID: "mimo", modelID: "mimo-auto" }
+        // No args/recent/config match: prefer the google (Gemini) provider so a
+        // clean install with a GEMINI_API_KEY defaults to a usable model.
+        const google = sync.data.provider.find((p) => p.id === "google")
+        if (google && "gemini-2.5-flash" in google.models) {
+          return { providerID: "google", modelID: "gemini-2.5-flash" }
         }
 
         const provider = sync.data.provider[0]

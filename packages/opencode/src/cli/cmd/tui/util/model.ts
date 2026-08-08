@@ -1,4 +1,4 @@
-import type { AssistantMessage, Config, Message, Model, Provider } from "@mimo-ai/sdk/v2"
+import type { AssistantMessage, Config, Message, Model, Provider } from "@nexus-code/sdk/v2"
 import { contextWindow as overflowWindow } from "@/session/overflow"
 import { Locale, Token } from "@/util"
 

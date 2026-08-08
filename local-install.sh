@@ -4,7 +4,7 @@ set -euo pipefail
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 package_dir="$repo_dir/packages/opencode"
-install_dir="${MIMOCODE_INSTALL_DIR:-$HOME/.mimocode/bin}"
+install_dir="${NEXUSCODE_INSTALL_DIR:-$HOME/.nexus/bin}"
 
 if ! command -v bun >/dev/null 2>&1; then
   echo "bun is required but was not found in PATH" >&2
@@ -42,18 +42,18 @@ esac
   bun run build:local
 )
 
-binary="$package_dir/dist/mimocode-$platform-$arch/bin/mimo"
+binary="$package_dir/dist/nexus-$platform-$arch/bin/nexus"
 if [[ ! -f "$binary" ]]; then
   echo "Built binary not found: $binary" >&2
   exit 1
 fi
 
 mkdir -p "$install_dir"
-temporary="$install_dir/.mimo.$$"
+temporary="$install_dir/.nexus.$$"
 trap 'rm -f "$temporary"' EXIT
 install -m 755 "$binary" "$temporary"
-mv -f "$temporary" "$install_dir/mimo"
+mv -f "$temporary" "$install_dir/nexus"
 trap - EXIT
 
-echo "Installed mimo to $install_dir/mimo"
-"$install_dir/mimo" --version
+echo "Installed nexus to $install_dir/nexus"
+"$install_dir/nexus" --version

@@ -12,12 +12,12 @@ import {
 import { Config } from "../config"
 import { ConfigMCP } from "../config/mcp"
 import { Log } from "../util"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@nexus-code/shared/util/error"
 import z from "zod/v4"
 import { Installation } from "../installation"
 import { InstallationVersion } from "../installation/version"
 import { withTimeout } from "@/util/timeout"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@nexus-code/shared/filesystem"
 import { McpOAuthProvider } from "./oauth-provider"
 import { McpOAuthCallback } from "./oauth-callback"
 import { McpAuth } from "./auth"
@@ -71,7 +71,7 @@ export const Failed = NamedError.create(
 
 type MCPClient = Client
 
-export const TURN_LIFECYCLE_CAPABILITY = "com.xiaomi.mimo/turn-lifecycle"
+export const TURN_LIFECYCLE_CAPABILITY = "com.gemini.nexus/turn-lifecycle"
 export const TURN_LIFECYCLE_NOTIFICATION = `notifications/${TURN_LIFECYCLE_CAPABILITY}`
 export const TURN_LIFECYCLE_VERSION = 1
 export const TURN_LIFECYCLE_NOTIFICATION_TIMEOUT = 1_000
@@ -80,7 +80,7 @@ export const TURN_LIFECYCLE_NOTIFICATION_TIMEOUT = 1_000
 export const TURN_LIFECYCLE_STUCK_TIMEOUT = TURN_LIFECYCLE_NOTIFICATION_TIMEOUT
 
 /**
- * Capabilities MiMoCode declares in `initialize`. Exported so tests assert on the
+ * Capabilities NexusCode declares in `initialize`. Exported so tests assert on the
  * SAME object the client is constructed with rather than a copy that could drift.
  */
 export const CLIENT_OPTIONS = {
@@ -440,7 +440,7 @@ export const layer = Layer.effect(
     const auth = yield* McpAuth.Service
     const bus = yield* Bus.Service
     const createClient = () =>
-      new Client({ name: "mimocode", version: InstallationVersion }, CLIENT_OPTIONS)
+      new Client({ name: "nexus", version: InstallationVersion }, CLIENT_OPTIONS)
 
     type Transport = StdioClientTransport | StreamableHTTPClientTransport | SSEClientTransport
 

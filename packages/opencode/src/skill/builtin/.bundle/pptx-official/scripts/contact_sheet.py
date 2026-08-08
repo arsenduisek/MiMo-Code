@@ -62,7 +62,7 @@ def _load_label_font():
 
 def _rasterise_pages(pdf: Path, out_dir: Path, dpi: int) -> list[Path]:
     # Delegates to the shared bridge rasteriser: pdftoppm when available, with the
-    # pypdfium2 fallback (bundled MIMO_PYTHON) when Poppler is absent.
+    # pypdfium2 fallback (bundled NEXUS_PYTHON) when Poppler is absent.
     return _rasterize(pdf, out_dir, "jpg", dpi=dpi)
 
 

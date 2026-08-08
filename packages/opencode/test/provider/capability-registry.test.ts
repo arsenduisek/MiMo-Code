@@ -15,7 +15,7 @@ function model(input: {
 }): Provider.Model {
   return {
     id: input.id,
-    providerID: input.providerID ?? "mimo",
+    providerID: input.providerID ?? "nexus",
     name: input.name ?? input.id,
     api: { npm: input.npm ?? "@ai-sdk/openai-compatible", id: input.id },
     capabilities: {
@@ -103,12 +103,12 @@ describe("model declaration ANDs the model gate with the adapter gate", () => {
 
 describe("rejectionFor", () => {
   test("accepts a 16kHz mono WAV on an audio-capable openai-compatible model", () => {
-    const subject = model({ id: "mimo-v2.5", audio: true })
+    const subject = model({ id: "nexus-v2.5", audio: true })
     expect(ModelCapability.rejectionFor(subject, [TEXT, AUDIO_WAV])).toBeUndefined()
   })
 
   test("rejects an audio MIME the adapter does not accept", () => {
-    const subject = model({ id: "mimo-v2.5", audio: true })
+    const subject = model({ id: "nexus-v2.5", audio: true })
     const reason = ModelCapability.rejectionFor(subject, [
       { modality: "audio", mimeType: "audio/flac", bytes: 1000 },
     ])
@@ -116,7 +116,7 @@ describe("rejectionFor", () => {
   })
 
   test("rejects content over the declared byte cap", () => {
-    const subject = model({ id: "mimo-v2.5", audio: true })
+    const subject = model({ id: "nexus-v2.5", audio: true })
     const bytes = ModelCapability.DEFAULT_MAX_MEDIA_BYTES + 1
     const reason = ModelCapability.rejectionFor(subject, [{ modality: "audio", mimeType: "audio/wav", bytes }])
     expect(reason).toEqual({
@@ -148,7 +148,7 @@ describe("selectModel: filter then rank", () => {
     expect(result.ok).toBe(false)
     if (result.ok) throw new Error("unreachable")
     // Every configured model is accounted for, with a reason.
-    expect(result.rejections.map((item) => item.model).sort()).toEqual(["mimo/text-only-a", "mimo/text-only-b"])
+    expect(result.rejections.map((item) => item.model).sort()).toEqual(["nexus/text-only-a", "nexus/text-only-b"])
     for (const rejection of result.rejections) {
       expect(rejection.reason).toEqual({ kind: "modality-unsupported", modality: "audio" })
     }
@@ -156,17 +156,17 @@ describe("selectModel: filter then rank", () => {
   })
 
   test("an exact hint on an eligible model wins", () => {
-    const models = [model({ id: "other", audio: true }), model({ id: "mimo-v2.5", audio: true })]
+    const models = [model({ id: "other", audio: true }), model({ id: "nexus-v2.5", audio: true })]
     const result = ModelCapability.selectModel({
       models,
       requirements: [AUDIO_WAV],
-      hints: [{ name: "mimo-v2.5" }],
+      hints: [{ name: "nexus-v2.5" }],
     })
     expect(result.ok).toBe(true)
     if (!result.ok) throw new Error("unreachable")
-    expect(String(result.model.id)).toBe("mimo-v2.5")
+    expect(String(result.model.id)).toBe("nexus-v2.5")
     expect(result.via).toBe("hint")
-    expect(result.hint).toBe("mimo-v2.5")
+    expect(result.hint).toBe("nexus-v2.5")
   })
 
   test("a hint naming a model that exists but lacks the modality does NOT win", () => {
@@ -174,7 +174,7 @@ describe("selectModel: filter then rank", () => {
     // audio. A hint must rank among eligible models, never widen eligibility.
     const models = [
       model({ id: "claude-x", npm: "@ai-sdk/anthropic", audio: true }),
-      model({ id: "mimo-v2.5", audio: true }),
+      model({ id: "nexus-v2.5", audio: true }),
     ]
     const result = ModelCapability.selectModel({
       models,
@@ -183,13 +183,13 @@ describe("selectModel: filter then rank", () => {
     })
     expect(result.ok).toBe(true)
     if (!result.ok) throw new Error("unreachable")
-    expect(String(result.model.id)).toBe("mimo-v2.5")
+    expect(String(result.model.id)).toBe("nexus-v2.5")
     // The hint did not land, so selection fell through to the ordinary strategy.
     expect(result.via).toBe("first-eligible")
   })
 
   test("a hint naming an unconfigured model falls through to the fallback", () => {
-    const fallback = model({ id: "mimo-v2.5", audio: true })
+    const fallback = model({ id: "nexus-v2.5", audio: true })
     const models = [model({ id: "zzz-other", audio: true }), fallback]
     const result = ModelCapability.selectModel({
       models,
@@ -199,7 +199,7 @@ describe("selectModel: filter then rank", () => {
     })
     expect(result.ok).toBe(true)
     if (!result.ok) throw new Error("unreachable")
-    expect(String(result.model.id)).toBe("mimo-v2.5")
+    expect(String(result.model.id)).toBe("nexus-v2.5")
     expect(result.via).toBe("fallback")
   })
 
@@ -226,15 +226,15 @@ describe("selectModel: filter then rank", () => {
   })
 
   test("a loose hint matches by substring but only among eligible models", () => {
-    const models = [model({ id: "mimo-v2.5-pro", audio: true })]
+    const models = [model({ id: "nexus-v2.5-pro", audio: true })]
     const result = ModelCapability.selectModel({
       models,
       requirements: [AUDIO_WAV],
-      hints: [{ name: "mimo-v2.5" }],
+      hints: [{ name: "nexus-v2.5" }],
     })
     expect(result.ok).toBe(true)
     if (!result.ok) throw new Error("unreachable")
-    expect(String(result.model.id)).toBe("mimo-v2.5-pro")
+    expect(String(result.model.id)).toBe("nexus-v2.5-pro")
     expect(result.via).toBe("hint")
   })
 
@@ -262,7 +262,7 @@ describe("selectModel: filter then rank", () => {
     expect(result.ok).toBe(false)
     if (result.ok) throw new Error("unreachable")
     expect(result.rejections).toEqual([
-      { model: "mimo/future", reason: { kind: "modality-unknown", modality: "audio" } },
+      { model: "nexus/future", reason: { kind: "modality-unknown", modality: "audio" } },
     ])
     // The operator-facing text separates "we do not know" from "this cannot
     // work". These two lines pin wording only; they are not sensitive to a
@@ -279,12 +279,12 @@ describe("selectModel: filter then rank", () => {
     // must never widen eligibility to one whose support is merely unproven.
     const models = [
       model({ id: "future", npm: "@ai-sdk/unheard-of", audio: true }),
-      model({ id: "mimo-v2.5", audio: true }),
+      model({ id: "nexus-v2.5", audio: true }),
     ]
     const result = ModelCapability.selectModel({ models, requirements: [AUDIO_WAV], hints: [{ name: "future" }] })
     expect(result.ok).toBe(true)
     if (!result.ok) throw new Error("unreachable")
-    expect(String(result.model.id)).toBe("mimo-v2.5")
+    expect(String(result.model.id)).toBe("nexus-v2.5")
     expect(result.via).toBe("first-eligible")
   })
 })

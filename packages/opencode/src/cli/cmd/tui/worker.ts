@@ -12,7 +12,7 @@ import { writeHeapSnapshot } from "node:v8"
 import { Heap } from "@/cli/heap"
 import { AppRuntime } from "@/effect/app-runtime"
 import { SessionCheckpoint } from "@/session/checkpoint"
-import { ensureProcessMetadata } from "@/util/mimo-process"
+import { ensureProcessMetadata } from "@/util/nexus-process"
 
 ensureProcessMetadata("worker")
 
@@ -116,8 +116,8 @@ export const rpc = {
 Rpc.listen(rpc)
 
 function getAuthorizationHeader(): string | undefined {
-  const password = Flag.MIMOCODE_SERVER_PASSWORD
+  const password = Flag.NEXUSCODE_SERVER_PASSWORD
   if (!password) return undefined
-  const username = Flag.MIMOCODE_SERVER_USERNAME ?? "mimocode"
+  const username = Flag.NEXUSCODE_SERVER_USERNAME ?? "nexus"
   return `Basic ${btoa(`${username}:${password}`)}`
 }

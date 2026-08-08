@@ -1,6 +1,6 @@
 import path from "path"
 import { describe, expect, test } from "bun:test"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@nexus-code/shared/util/error"
 import { fileURLToPath } from "url"
 import { Effect, Exit, Layer } from "effect"
 import { Instance } from "../../src/project/instance"
@@ -346,7 +346,7 @@ describe("session.prompt regression", () => {
         git: true,
         init: async (dir) => {
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "nexus.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               enabled_providers: ["alibaba"],
@@ -420,7 +420,7 @@ describe("session.prompt regression", () => {
         git: true,
         init: async (dir) => {
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "nexus.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               enabled_providers: ["alibaba"],
@@ -520,7 +520,7 @@ describe("session.prompt regression", () => {
         git: true,
         init: async (dir) => {
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "nexus.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               enabled_providers: ["alibaba"],
@@ -754,7 +754,7 @@ describe("session.agent-resolution", () => {
   }, 30000)
 })
 
-// F37: subagent context isolation. Mimocode's spawnSubagent shares
+// F37: subagent context isolation. NexusCode's spawnSubagent shares
 // sessionID with the parent and slices via agent_id. Without filtering
 // at the prompt-build call site (prompt.ts → runLoop →
 // filterCompactedEffect), a subagent's LLM call would receive the
@@ -784,7 +784,7 @@ describe("session.prompt F37 subagent context isolation", () => {
         git: true,
         init: async (dir) => {
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "nexus.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               enabled_providers: ["alibaba"],

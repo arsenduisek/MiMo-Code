@@ -1,5 +1,5 @@
 {
-  "$schema": "https://mimo.xiaomi.com/mimocode/config.json",
+  "$schema": "https://github.com/arsenduisek/Nexus-Code/docs/config.json",
   "provider": {},
   "permission": {
     "edit": {

@@ -75,7 +75,7 @@ def _check_roundtrip(reader) -> Finding:
 
 
 def _check_qpdf(path: Path) -> Finding:
-    binary = os.environ.get("MIMO_QPDF")  # bundled qpdf: use only when present, else fall through
+    binary = os.environ.get("NEXUS_QPDF")  # bundled qpdf: use only when present, else fall through
     if binary and not os.path.exists(binary):
         binary = None
     binary = binary or shutil.which("qpdf")

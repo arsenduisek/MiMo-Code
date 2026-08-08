@@ -1,24 +1,24 @@
-<h1 align="center">MiMoCode</h1>
+<h1 align="center">NexusCode</h1>
 
 <p align="center">
-  <img src="assets/readme/mimocode-banner.png" alt="MiMoCode" width="700">
+  <img src="assets/readme/nexus-banner.png" alt="NexusCode" width="700">
 </p>
 
-<p align="center"><strong>MiMo Code: Where Models and Agents Co-Evolve</strong></p>
+<p align="center"><strong>Nexus Code: Where Models and Agents Co-Evolve</strong></p>
 
 <p align="center">
   <a href="README.zh.md">中文</a> | English
 </p>
 
 <p align="center">
-  <a href="https://mimo.xiaomi.com/coder">Website</a> | <a href="https://mimo.xiaomi.com/en/blog/mimo-code-long-horizon">Blog</a>
+  <a href="https://github.com/arsenduisek/Nexus-Code/coder">Website</a> | <a href="https://github.com/arsenduisek/Nexus-Code/en/blog/nexus-code-long-horizon">Blog</a>
 </p>
 
 ---
 
-MiMoCode is a terminal-native AI coding assistant. It can read and write code, run commands, manage Git, and use a persistent memory system to keep a deep understanding of your project across sessions while continuously improving itself.
+NexusCode is a terminal-native AI coding assistant. It can read and write code, run commands, manage Git, and use a persistent memory system to keep a deep understanding of your project across sessions while continuously improving itself.
 
-MiMo Auto is built in as a free-for-limited-time channel, so you can start with zero configuration. MiMoCode also supports connecting to any mainstream LLM provider API.
+Nexus Auto is built in as a free-for-limited-time channel, so you can start with zero configuration. NexusCode also supports connecting to any mainstream LLM provider API.
 
 ---
 
@@ -26,21 +26,21 @@ MiMo Auto is built in as a free-for-limited-time channel, so you can start with 
 
 ```bash
 # One-line install (macOS / Linux)
-curl -fsSL https://mimo.xiaomi.com/install | bash
+curl -fsSL https://github.com/arsenduisek/Nexus-Code/install | bash
 
 # One-line install (Windows PowerShell)
-powershell -ep Bypass -c "irm https://mimo.xiaomi.com/install.ps1 | iex"
+powershell -ep Bypass -c "irm https://github.com/arsenduisek/Nexus-Code/install.ps1 | iex"
 
 # Or install via npm (all platforms)
-npm install -g @mimo-ai/cli
+npm install -g @nexus-code/cli
 
 # Run
-mimo
+nexus
 ```
 
 The first launch guides you through configuration automatically. Supported options:
-- **MiMo Auto (free for a limited time)** — anonymous channel, zero configuration
-- **Xiaomi MiMo Platform** — OAuth login
+- **Nexus Auto (free for a limited time)** — anonymous channel, zero configuration
+- **Nexus Nexus Platform** — OAuth login
 - **Codex (ChatGPT Pro/Plus)** — OpenAI OAuth login
 - **Import from Claude Code** — migrate existing authentication in one step
 - **Provider list** — connect catalog providers by API key, or OAuth where supported (e.g. xAI/Grok)
@@ -58,7 +58,7 @@ sudo apt install xsel
 <details>
 <summary><strong>macOS: rendering issues in the default terminal</strong></summary>
 
-MiMoCode does not support the built-in macOS Terminal (Terminal.app). If the interface is misaligned, flickers, or has other rendering issues, use [iTerm2](https://iterm2.com/) or the VS Code integrated terminal instead:
+NexusCode does not support the built-in macOS Terminal (Terminal.app). If the interface is misaligned, flickers, or has other rendering issues, use [iTerm2](https://iterm2.com/) or the VS Code integrated terminal instead:
 
 ```bash
 brew install --cask iterm2
@@ -68,17 +68,17 @@ brew install --cask iterm2
 <details>
 <summary><strong>TUI lag and visual animation issues</strong></summary>
 
-If the TUI lags when run directly over SSH, render it locally and run only the MiMoCode server on the remote host. Start the server from the remote project directory:
+If the TUI lags when run directly over SSH, render it locally and run only the NexusCode server on the remote host. Start the server from the remote project directory:
 
 ```bash
 # Remote host
-mimo serve --port 4096
+nexus serve --port 4096
 
 # Local host: create the SSH port forward
 ssh -N -L 4096:127.0.0.1:4096 user@remote-host
 
 # Local host: connect from another terminal
-mimo attach http://127.0.0.1:4096
+nexus attach http://127.0.0.1:4096
 ```
 
 If decorative animation is causing the lag, run `/vivid`, or configure **Vivid visuals** in the `ctrl+p` command palette, to switch between Vivid and Minimal visuals as needed.
@@ -89,7 +89,7 @@ If decorative animation is causing the lag, run `/vivid`, or configure **Vivid v
 <summary><strong>Windows: garbled CJK (Chinese/Japanese/Korean) output in the shell</strong></summary>
 
 On Windows with a non-UTF-8 system locale (e.g. zh-CN, whose active code page is 936/GBK),
-command output containing CJK characters may appear garbled (mojibake). MiMoCode forces
+command output containing CJK characters may appear garbled (mojibake). NexusCode forces
 UTF-8 output for spawned PowerShell/cmd subprocesses. If you still encounter garbled output
 in cases this does not yet cover, enable Windows' system-wide UTF-8 support:
 
@@ -104,11 +104,11 @@ some older non-Unicode programs to display incorrectly, so treat it as a workaro
 
 ---
 
-## MiMo Ecosystem
+## Nexus Ecosystem
 
-Beyond MiMoCode, Xiaomi MiMo models also work in other agents and coding tools like Cursor, Cline, and Zed.
+Beyond NexusCode, Nexus Nexus models also work in other agents and coding tools like Cursor, Cline, and Zed.
 
-**[awesome-mimo-agent](https://github.com/XiaomiMiMo/awesome-mimo-agent)** collects setup guides for using MiMo in those tools — worth a look if you want to try MiMo elsewhere. Contributions welcome: open a PR to add your own setup.
+**[awesome-nexus-agent](https://github.com/NexusCode/awesome-nexus-agent)** collects setup guides for using Nexus in those tools — worth a look if you want to try Nexus elsewhere. Contributions welcome: open a PR to add your own setup.
 
 ---
 
@@ -175,7 +175,7 @@ Why you might want it:
   serves 1M.
 - **Quality and latency.** Very long contexts are slower and, past a point, not better.
 
-`mimo models <provider>` prints, per model, the window MiMoCode resolved and the token count
+`nexus models <provider>` prints, per model, the window NexusCode resolved and the token count
 where it will compact. The prompt footer uses that same number as its denominator
 (`33.0K/260K↓ (13%)` — the `↓` means a budget is in force), and `/status` breaks it down.
 
@@ -195,7 +195,7 @@ The `/goal` command sets a stopping condition for a session. When the agent trie
 
 ### Compose Mode
 
-Compose is MiMoCode's structured workflow for specs-driven development, orchestrating the full lifecycle from spec to shipped code.
+Compose is NexusCode's structured workflow for specs-driven development, orchestrating the full lifecycle from spec to shipped code.
 
 The recommended way to use it is the **`/compose-next`** skill on the **build** agent: a single self-contained contract covering grill → spec → workspace → implement → verify → review → finalize → finish, with feature documents at `docs/compose/spec/<feature>.md`. It is designed for frontier models (Fable/Sol-class), which internalize most of the workflow and work best from one compact contract.
 
@@ -205,7 +205,7 @@ The legacy path is the dedicated **compose agent** (switch with `Tab`), which or
 
 Workflows are deterministic JavaScript scripts that orchestrate multiple agents in a sandboxed runtime. Unlike agent conversations, workflows encode fixed phase sequences with bounded retries and automatic parallelization — fire-and-forget execution with no user interaction required.
 
-MiMoCode ships with four built-in workflows:
+NexusCode ships with four built-in workflows:
 
 | Workflow | Phases | Description |
 |----------|--------|-------------|
@@ -216,13 +216,13 @@ MiMoCode ships with four built-in workflows:
 
 The compose workflow complements the interactive path: use the **workflow** when requirements are clear and tasks split cleanly (deterministic, parallel, non-interactive); use the **build** agent with `/compose-next` (or the legacy compose agent) when you need to redirect mid-flow or inject judgment between steps (conversational, interactive).
 
-**Custom workflows:** Place a `.js` file in `.mimocode/workflows/` or `.claude/workflows/` to define your own, or override a built-in by using the same name (e.g. `.mimocode/workflows/compose.js`).
+**Custom workflows:** Place a `.js` file in `.nexus/workflows/` or `.claude/workflows/` to define your own, or override a built-in by using the same name (e.g. `.nexus/workflows/compose.js`).
 
 ### Builtin Skills
 
-Skills are reusable instruction sets that teach agents how to handle specific tasks (e.g. generating PDFs, writing academic papers, searching arXiv). For a new task, MiMoCode searches available non-Compose skills by exact name, localized alias, and BM25 relevance. High-confidence matches are loaded automatically; uncertain matches are ranked for the agent to assess. In the TUI, type `/` to browse the autocomplete list or invoke a skill directly with `/<skill-name>` — mentioning two or more skills in a single message auto-loads them and injects a multi-skill orchestration plan.
+Skills are reusable instruction sets that teach agents how to handle specific tasks (e.g. generating PDFs, writing academic papers, searching arXiv). For a new task, NexusCode searches available non-Compose skills by exact name, localized alias, and BM25 relevance. High-confidence matches are loaded automatically; uncertain matches are ranked for the agent to assess. In the TUI, type `/` to browse the autocomplete list or invoke a skill directly with `/<skill-name>` — mentioning two or more skills in a single message auto-loads them and injects a multi-skill orchestration plan.
 
-MiMoCode bundles the following builtin skills:
+NexusCode bundles the following builtin skills:
 
 | Skill | Description |
 |-------|-------------|
@@ -234,13 +234,13 @@ MiMoCode bundles the following builtin skills:
 | `deep-research` | Produce cited, multi-source research reports with parallel subagents and built-in web tools |
 | `design-blueprint` | Produce a design blueprint (DESIGN.md + Decision Trace) before mocking up visuals |
 | `docx-official` | Produce, read, and transform Word (.docx) files |
-| `drive-mimo` | Script, test, and automate another MiMoCode process in headless or interactive TUI mode |
+| `drive-nexus` | Script, test, and automate another NexusCode process in headless or interactive TUI mode |
 | `evolve` | Total self-modification — rewrite any layer of the agent: tools, behavior hooks, knowledge, workflows, even the UI |
 | `frontend-design` | Visual design guidance for UI work |
 | `html-to-video-pipeline` | HTML-to-MP4 rendering via headless browser + ffmpeg |
 | `learn-everything` | Turn documents, URLs, or topics into adaptive courses with exercises, feedback, and progress tracking |
 | `loop` | Schedule recurring prompts on a fixed cadence |
-| `mimocode-docs` | Self-documenting reference for MiMoCode features, commands, providers, and configuration |
+| `nexus-docs` | Self-documenting reference for NexusCode features, commands, providers, and configuration |
 | `modern-python-toolchain` | Set up modern Python projects with uv, Ruff, and Pyright |
 | `pdf-official` | Produce, read, fill, and transform PDF files |
 | `pptx-official` | Author and manipulate PowerPoint (.pptx) decks |
@@ -253,24 +253,24 @@ MiMoCode bundles the following builtin skills:
 
 `claude-code` and `codex` are exposed only when the `claude` and `codex` executables, respectively, are installed. Other skills may still require task-specific tools described in their instructions.
 
-**Overriding a builtin skill:** Create a skill with the same `name` in your project (`.mimocode/skills/<name>/SKILL.md`) or personal skill directory (`~/.claude/skills/`, `~/.opencode/skills/`, etc.). User skills discovered later in the scan order override builtins with the same name.
+**Overriding a builtin skill:** Create a skill with the same `name` in your project (`.nexus/skills/<name>/SKILL.md`) or personal skill directory (`~/.claude/skills/`, `~/.opencode/skills/`, etc.). User skills discovered later in the scan order override builtins with the same name.
 
 <details>
 <summary><strong>Disabling builtin skills via environment variables</strong></summary>
 
 | Variable | Effect |
 |----------|--------|
-| `MIMOCODE_DISABLE_BUILTIN_SKILLS=true` | Disable all builtin skills |
-| `MIMOCODE_DISABLE_OFFICIAL_SKILLS=true` | Disable only the office/media skills: `docx-official`, `pdf-official`, `pptx-official`, `xlsx-official`, `html-to-video-pipeline` |
-| `MIMOCODE_DISABLE_SLASH_SKILLS=true` | Hide skills from TUI `/` autocomplete without disabling them |
+| `NEXUSCODE_DISABLE_BUILTIN_SKILLS=true` | Disable all builtin skills |
+| `NEXUSCODE_DISABLE_OFFICIAL_SKILLS=true` | Disable only the office/media skills: `docx-official`, `pdf-official`, `pptx-official`, `xlsx-official`, `html-to-video-pipeline` |
+| `NEXUSCODE_DISABLE_SLASH_SKILLS=true` | Hide skills from TUI `/` autocomplete without disabling them |
 
-The first two options remove the corresponding skills from the agent's available skill list entirely — they will not appear in context and cannot be invoked. `MIMOCODE_DISABLE_SLASH_SKILLS` affects only TUI autocomplete; the skills remain available to agents.
+The first two options remove the corresponding skills from the agent's available skill list entirely — they will not appear in context and cannot be invoked. `NEXUSCODE_DISABLE_SLASH_SKILLS` affects only TUI autocomplete; the skills remain available to agents.
 
 </details>
 
 ### Voice Input
 
-Real-time streaming voice input powered by TenVAD and MiMo ASR. Activate with `/voice`, then speak — audio is segmented by pauses and transcribed incrementally into the input. Available for MiMo logged-in users. Requires `sox` (`brew install sox` on macOS, other platforms similar).
+Real-time streaming voice input powered by TenVAD and Nexus ASR. Activate with `/voice`, then speak — audio is segmented by pauses and transcribed incrementally into the input. Available for Nexus logged-in users. Requires `sox` (`brew install sox` on macOS, other platforms similar).
 
 <details>
 <summary><strong>WSLg audio setup</strong></summary>
@@ -298,9 +298,9 @@ export PULSE_SERVER=tcp:127.0.0.1:4713
 </details>
 
 <details>
-<summary><strong>Non-MiMo voice providers (OpenRouter, internal API, etc.)</strong></summary>
+<summary><strong>Non-Nexus voice providers (OpenRouter, internal API, etc.)</strong></summary>
 
-Voice input can route through other OpenAI-compatible providers via the `voice` config field. The ASR model (`mimo-v2.5-asr`) is only available on MiMo's platform; voice control mode (`mimo-v2.5`) is available on OpenRouter and compatible relay platforms.
+Voice input can route through other OpenAI-compatible providers via the `voice` config field. The ASR model (`nexus-v2.5-asr`) is only available on Nexus's platform; voice control mode (`nexus-v2.5`) is available on OpenRouter and compatible relay platforms.
 
 **OpenRouter (voice control only):**
 
@@ -308,7 +308,7 @@ Use `/connect` to sign in to OpenRouter, then add to your config:
 ```jsonc
 {
   "voice": {
-    "control_model": "openrouter/xiaomi/mimo-v2.5"
+    "control_model": "openrouter/gemini/nexus-v2.5"
   }
 }
 ```
@@ -323,21 +323,21 @@ Use `/connect` to sign in to OpenRouter, then add to your config:
         "apiKey": "sk-..."
       },
       "models": {
-        "xiaomi/mimo-v2.5-asr": { "name": "MiMo-V2.5-ASR" },
-        "xiaomi/mimo-v2.5": { "name": "MiMo-V2.5" }
+        "gemini/nexus-v2.5-asr": { "name": "Nexus-V2.5-ASR" },
+        "gemini/nexus-v2.5": { "name": "Nexus-V2.5" }
       }
     }
   },
   "voice": {
-    "asr_model": "internal/xiaomi/mimo-v2.5-asr",
-    "control_model": "internal/xiaomi/mimo-v2.5"
+    "asr_model": "internal/gemini/nexus-v2.5-asr",
+    "control_model": "internal/gemini/nexus-v2.5"
   }
 }
 ```
 
 Custom providers must register at least one model in their `models` field to be recognized. The model names in `voice.*_model` are sent directly to the API — they don't need to match the registered model keys exactly.
 
-> **Note:** Models registered under a custom provider will appear in the model selection list. Don't use ASR-only models (e.g. `mimo-v2.5-asr`) as your primary coding model.
+> **Note:** Models registered under a custom provider will appear in the model selection list. Don't use ASR-only models (e.g. `nexus-v2.5-asr`) as your primary coding model.
 
 </details>
 
@@ -350,26 +350,26 @@ Custom providers must register at least one model in their `models` field to be 
 
 ## Configuration
 
-MiMoCode uses JSON/JSONC config files with published JSON Schemas for autocompletion and validation.
+NexusCode uses JSON/JSONC config files with published JSON Schemas for autocompletion and validation.
 
 ### File Locations
 
 | File | Project-level | Global |
 |------|--------------|--------|
-| Main config | `.mimocode/mimocode.jsonc` (also `.json`) | `~/.config/mimocode/mimocode.jsonc` (also `.json`) |
-| TUI config | `.mimocode/tui.json` | `~/.config/mimocode/tui.json` |
-| Auth credentials | — | `~/.local/share/mimocode/auth.json` |
+| Main config | `.nexus/nexus.jsonc` (also `.json`) | `~/.config/nexus/nexus.jsonc` (also `.json`) |
+| TUI config | `.nexus/tui.json` | `~/.config/nexus/tui.json` |
+| Auth credentials | — | `~/.local/share/nexus/auth.json` |
 
-> On Windows, XDG paths fall under `%LOCALAPPDATA%\mimocode\`. You can override all paths with `MIMOCODE_HOME`.
+> On Windows, XDG paths fall under `%LOCALAPPDATA%\nexus\`. You can override all paths with `NEXUSCODE_HOME`.
 
 ### JSON Schemas
 
-MiMoCode auto-injects a `$schema` field when it first loads your config, so your editor gets completions and validation out of the box:
+NexusCode auto-injects a `$schema` field when it first loads your config, so your editor gets completions and validation out of the box:
 
 | Config | Schema URL |
 |--------|-----------|
-| `mimocode.jsonc` / `mimocode.json` | `https://mimo.xiaomi.com/mimocode/config.json` |
-| `tui.json` | `https://mimo.xiaomi.com/mimocode/tui.json` |
+| `nexus.jsonc` / `nexus.json` | `https://github.com/arsenduisek/Nexus-Code/docs/config.json` |
+| `tui.json` | `https://github.com/arsenduisek/Nexus-Code/docs/tui.json` |
 
 <details>
 <summary><strong>VS Code / Cursor: trust the schema domain</strong></summary>
@@ -379,7 +379,7 @@ Add to your `settings.json` so the editor can download schemas for autocompletio
 ```json
 {
   "json.schemaDownload.trustedDomains": {
-    "https://mimo.xiaomi.com/": true
+    "https://github.com/arsenduisek/Nexus-Code/": true
   }
 }
 ```
@@ -389,15 +389,15 @@ Add to your `settings.json` so the editor can download schemas for autocompletio
 <details>
 <summary><strong>Data directories</strong></summary>
 
-Beyond config files, MiMoCode stores runtime data under XDG paths (or `$MIMOCODE_HOME`):
+Beyond config files, NexusCode stores runtime data under XDG paths (or `$NEXUSCODE_HOME`):
 
 | Directory | Default (Linux) | Contents |
 |-----------|----------------|----------|
-| data | `~/.local/share/mimocode/` | SQLite database, auth credentials (`auth.json`), memory, logs |
-| state | `~/.local/state/mimocode/` | TUI preferences (`kv.json`), recent models (`model.json`) |
-| cache | `~/.cache/mimocode/` | Language servers, cached model catalog, skills |
+| data | `~/.local/share/nexus/` | SQLite database, auth credentials (`auth.json`), memory, logs |
+| state | `~/.local/state/nexus/` | TUI preferences (`kv.json`), recent models (`model.json`) |
+| cache | `~/.cache/nexus/` | Language servers, cached model catalog, skills |
 
-To remove stored credentials, delete `auth.json` from the data directory. On macOS, XDG data defaults to `~/Library/Application Support/mimocode/`.
+To remove stored credentials, delete `auth.json` from the data directory. On macOS, XDG data defaults to `~/Library/Application Support/nexus/`.
 
 </details>
 
@@ -407,7 +407,7 @@ If your provider is not in the built-in model catalog, configure it directly wit
 
 ```jsonc
 {
-  "$schema": "https://mimo.xiaomi.com/mimocode/config.json",
+  "$schema": "https://github.com/arsenduisek/Nexus-Code/docs/config.json",
   "model": "custom/MODEL_NAME",
   "provider": {
     "custom": {
@@ -429,12 +429,12 @@ If your provider is not in the built-in model catalog, configure it directly wit
 ```
 
 - Use the exact keys `baseURL` and `apiKey`.
-- Preserve the base URL and model ID exactly as supplied. MiMoCode does not require a known provider and you should not add or remove `/v1` unless the endpoint requires it.
+- Preserve the base URL and model ID exactly as supplied. NexusCode does not require a known provider and you should not add or remove `/v1` unless the endpoint requires it.
 - The key under `models` is the upstream model ID. Model IDs containing `/` are supported because only the first `/` in `model` separates the provider ID from the model ID.
 - Replace `custom` with another unused lowercase provider ID if needed, and use the same ID in the top-level `model` value.
 - `@ai-sdk/openai-compatible` is for OpenAI-compatible APIs. Services using a different wire protocol require their provider-specific adapter.
 
-Put user-wide settings in `~/.config/mimocode/mimocode.jsonc` (or `mimocode.json` in the same directory), or project-only settings in `.mimocode/mimocode.jsonc` (or `.json`), and merge them with any existing configuration. Because `apiKey` is stored as plaintext, keep the file readable only by your user and never commit it. Run `mimo models` or use the TUI model picker to verify the configured model.
+Put user-wide settings in `~/.config/nexus/nexus.jsonc` (or `nexus.json` in the same directory), or project-only settings in `.nexus/nexus.jsonc` (or `.json`), and merge them with any existing configuration. Because `apiKey` is stored as plaintext, keep the file readable only by your user and never commit it. Run `nexus models` or use the TUI model picker to verify the configured model.
 
 To declare which input modalities a custom model supports (image, audio, video, PDF), run `/modalities` in the TUI — a multi-select dialog that persists the setting to config without hand-editing.
 
@@ -453,16 +453,16 @@ Max Mode (parallel best-of-N reasoning with judge selection) can be enabled via 
 
 By default, reading or writing files outside the project working directory triggers an
 `external_directory` permission prompt — including the system temp directory. This is
-intentional: MiMoCode does not silently widen permissions, so you stay in control of what
+intentional: NexusCode does not silently widen permissions, so you stay in control of what
 the model can touch outside your project.
 
 The temp directory comes up often because most models reach for it as scratch space (e.g.
 a quick script, a throwaway data file). If you trust your environment and would rather not
 be prompted each time, you can opt in by allowing it in your config:
 
-```json title=".mimocode/mimocode.json"
+```json title=".nexus/nexus.json"
 {
-  "$schema": "https://mimo.xiaomi.com/mimocode/config.json",
+  "$schema": "https://github.com/arsenduisek/Nexus-Code/docs/config.json",
   "permission": {
     "external_directory": {
       "/tmp/**": "allow"
@@ -488,13 +488,13 @@ everything the agent does instead of confirming each action:
 
 ```bash
 # TUI — prompts once for an explicit confirmation on startup
-mimo --dangerously-skip-permissions
+nexus --dangerously-skip-permissions
 
 # Headless
-mimo run --dangerously-skip-permissions "your prompt"
+nexus run --dangerously-skip-permissions "your prompt"
 
 # Or via environment variable (any surface)
-MIMOCODE_DANGEROUSLY_SKIP_PERMISSIONS=1 mimo
+NEXUSCODE_DANGEROUSLY_SKIP_PERMISSIONS=1 nexus
 ```
 
 This injects an **allow-all base underneath your config**, so a tool with no rule
@@ -528,7 +528,7 @@ bun turbo typecheck      # Type check
 
 ## Relationship to OpenCode
 
-MiMoCode is built as a fork of [OpenCode](https://github.com/anomalyco/opencode). It keeps all core OpenCode capabilities (multiple providers, TUI, LSP, MCP, plugins) and adds persistent memory, intelligent context management, subagent orchestration, goal-driven autonomous loops, compose workflows, and self-improvement via dream/distill.
+NexusCode is built as a fork of [OpenCode](https://github.com/anomalyco/opencode). It keeps all core OpenCode capabilities (multiple providers, TUI, LSP, MCP, plugins) and adds persistent memory, intelligent context management, subagent orchestration, goal-driven autonomous loops, compose workflows, and self-improvement via dream/distill.
 
 ---
 
@@ -548,6 +548,6 @@ Scan the QR code to join the community group chat:
 
 Source code is licensed under the [MIT License](./LICENSE).
 
-Use of MiMoCode is also subject to the [Use Restrictions](./USE_RESTRICTIONS.md).
-Use of Xiaomi MiMo-hosted services is subject to the [MiMo Terms of Service](https://platform.xiaomimimo.com/docs/terms/user-agreement).
-Use of the MiMo name, logo, and trademarks is subject to the MiMo Trademark Policy.
+Use of NexusCode is also subject to the [Use Restrictions](./USE_RESTRICTIONS.md).
+Use of Nexus Nexus-hosted services is subject to the [Nexus Terms of Service](https://console.cloud.google.com/docs/terms/user-agreement).
+Use of the Nexus name, logo, and trademarks is subject to the Nexus Trademark Policy.

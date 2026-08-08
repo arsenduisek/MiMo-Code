@@ -6,7 +6,7 @@ import {
   extractAccountId,
   type IdTokenClaims,
 } from "../../src/plugin/codex"
-import type { PluginInput } from "@mimo-ai/plugin"
+import type { PluginInput } from "@nexus-code/plugin"
 
 const originalFetch = globalThis.fetch
 

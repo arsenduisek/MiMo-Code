@@ -8,15 +8,15 @@ import { SessionID } from "../../src/session/schema"
 
 async function withTmpHome<T>(fn: (sessionID: SessionID) => Promise<T>): Promise<T> {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "subagent-progress-test-"))
-  const prevHome = process.env.MIMOCODE_HOME
-  process.env.MIMOCODE_HOME = dir
+  const prevHome = process.env.NEXUSCODE_HOME
+  process.env.NEXUSCODE_HOME = dir
   try {
     const sid = SessionID.make("ses_test_" + Date.now())
     await fs.mkdir(tasksDir(sid), { recursive: true })
     return await fn(sid)
   } finally {
-    if (prevHome === undefined) delete process.env.MIMOCODE_HOME
-    else process.env.MIMOCODE_HOME = prevHome
+    if (prevHome === undefined) delete process.env.NEXUSCODE_HOME
+    else process.env.NEXUSCODE_HOME = prevHome
     await fs.rm(dir, { recursive: true, force: true })
   }
 }
@@ -251,7 +251,7 @@ describe("SubagentProgressCheckerPlugin matcher (C1 regression)", () => {
     const hooks = await getHooks()
     const reg = hooks["actor.postStop"]
     if (!reg || typeof reg === "function") throw new Error("expected matcher form")
-    const matcher = (reg as { matcher?: import("@mimo-ai/plugin").ActorMatcher }).matcher
+    const matcher = (reg as { matcher?: import("@nexus-code/plugin").ActorMatcher }).matcher
     for (const at of ["general", "explore", "build"]) {
       expect(matchesActor(matcher, { mode: "subagent", agentType: at })).toBe(true)
     }
@@ -261,7 +261,7 @@ describe("SubagentProgressCheckerPlugin matcher (C1 regression)", () => {
     const hooks = await getHooks()
     const reg = hooks["actor.postStop"]
     if (!reg || typeof reg === "function") throw new Error("expected matcher form")
-    const matcher = (reg as { matcher?: import("@mimo-ai/plugin").ActorMatcher }).matcher
+    const matcher = (reg as { matcher?: import("@nexus-code/plugin").ActorMatcher }).matcher
     for (const at of ["checkpoint-writer", "title", "summary", "dream", "distill", "compaction", "main"]) {
       expect(matchesActor(matcher, { mode: "subagent", agentType: at })).toBe(false)
     }
@@ -271,7 +271,7 @@ describe("SubagentProgressCheckerPlugin matcher (C1 regression)", () => {
     const hooks = await getHooks()
     const reg = hooks["actor.postStop"]
     if (!reg || typeof reg === "function") throw new Error("expected matcher form")
-    const matcher = (reg as { matcher?: import("@mimo-ai/plugin").ActorMatcher }).matcher
+    const matcher = (reg as { matcher?: import("@nexus-code/plugin").ActorMatcher }).matcher
     expect(matchesActor(matcher, { mode: "subagent", agentType: "my-custom-reviewer" })).toBe(true)
   })
 })

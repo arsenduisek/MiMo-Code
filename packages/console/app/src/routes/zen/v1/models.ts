@@ -1,9 +1,9 @@
 import type { APIEvent } from "@solidjs/start/server"
-import { and, Database, eq, isNull } from "@mimo-ai/console-core/drizzle/index.js"
-import { KeyTable } from "@mimo-ai/console-core/schema/key.sql.js"
-import { WorkspaceTable } from "@mimo-ai/console-core/schema/workspace.sql.js"
-import { ModelTable } from "@mimo-ai/console-core/schema/model.sql.js"
-import { ZenData } from "@mimo-ai/console-core/model.js"
+import { and, Database, eq, isNull } from "@nexus-code/console-core/drizzle/index.js"
+import { KeyTable } from "@nexus-code/console-core/schema/key.sql.js"
+import { WorkspaceTable } from "@nexus-code/console-core/schema/workspace.sql.js"
+import { ModelTable } from "@nexus-code/console-core/schema/model.sql.js"
+import { ZenData } from "@nexus-code/console-core/model.js"
 
 export async function OPTIONS(_input: APIEvent) {
   return new Response(null, {

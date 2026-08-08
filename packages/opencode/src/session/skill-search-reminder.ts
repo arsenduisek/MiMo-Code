@@ -31,7 +31,7 @@ export function skillSearchReminder(input: { currentUserAt: number; previousUser
       "</system-reminder>",
     ].join("\n")
   }
-  if (input.currentUserAt - input.previousUserAt < Flag.MIMOCODE_SKILL_SEARCH_REFRESH_INTERVAL_MS) return
+  if (input.currentUserAt - input.previousUserAt < Flag.NEXUSCODE_SKILL_SEARCH_REFRESH_INTERVAL_MS) return
   return [
     "<system-reminder>",
     "Skill search trigger: at least 12 hours passed since the previous user query.",
@@ -68,7 +68,7 @@ export function skillSearchReminderForSession(input: {
   messages: ReminderMessage[]
 }) {
   if (
-    !Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER ||
+    !Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER ||
     input.session.parentID ||
     input.agent.mode === "subagent" ||
     input.agent.name === "compose" ||

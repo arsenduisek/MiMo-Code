@@ -1,11 +1,11 @@
-import { TextField } from "@mimo-ai/ui/text-field"
-import { Logo } from "@mimo-ai/ui/logo"
-import { Button } from "@mimo-ai/ui/button"
+import { TextField } from "@nexus-code/ui/text-field"
+import { Logo } from "@nexus-code/ui/logo"
+import { Button } from "@nexus-code/ui/button"
 import { Component, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { usePlatform } from "@/context/platform"
 import { useLanguage } from "@/context/language"
-import { Icon } from "@mimo-ai/ui/icon"
+import { Icon } from "@nexus-code/ui/icon"
 
 export type InitError = {
   name: string

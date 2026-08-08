@@ -108,7 +108,7 @@ def _validate(fields, values: dict[str, Any]) -> list[str]:
 
 def _flatten_via_qpdf(target_pdf: Path) -> bool:
     """Flatten `target_pdf` in place. Returns True on success."""
-    qpdf = os.environ.get("MIMO_QPDF")  # bundled qpdf: use only when present, else fall through
+    qpdf = os.environ.get("NEXUS_QPDF")  # bundled qpdf: use only when present, else fall through
     if qpdf and not os.path.exists(qpdf):
         qpdf = None
     qpdf = qpdf or shutil.which("qpdf")

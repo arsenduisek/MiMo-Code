@@ -2,7 +2,7 @@ import { CliRenderEvents, SyntaxStyle, RGBA, type TerminalColors } from "@opentu
 import path from "path"
 import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
 import { createSimpleContext } from "./helper"
-import { Glob } from "@mimo-ai/shared/util/glob"
+import { Glob } from "@nexus-code/shared/util/glob"
 import aura from "./theme/aura.json" with { type: "json" }
 import ayu from "./theme/ayu.json" with { type: "json" }
 import catppuccin from "./theme/catppuccin.json" with { type: "json" }
@@ -24,7 +24,7 @@ import nightowl from "./theme/nightowl.json" with { type: "json" }
 import nord from "./theme/nord.json" with { type: "json" }
 import osakaJade from "./theme/osaka-jade.json" with { type: "json" }
 import onedark from "./theme/one-dark.json" with { type: "json" }
-import mimocode from "./theme/mimocode.json" with { type: "json" }
+import nexus from "./theme/nexus.json" with { type: "json" }
 import orng from "./theme/orng.json" with { type: "json" }
 import lucentOrng from "./theme/lucent-orng.json" with { type: "json" }
 import palenight from "./theme/palenight.json" with { type: "json" }
@@ -44,7 +44,7 @@ import { Filesystem } from "@/util"
 import { useTuiConfig } from "./tui-config"
 import { isRecord } from "@/util/record"
 import { applyEdits, modify } from "jsonc-parser"
-import type { TuiThemeCurrent } from "@mimo-ai/plugin/tui"
+import type { TuiThemeCurrent } from "@nexus-code/plugin/tui"
 
 type Theme = TuiThemeCurrent & {
   _hasSelectedListItemText: boolean
@@ -87,9 +87,9 @@ export type ThemeJson = {
 }
 
 const PLAIN_TERMINAL_THEME: ThemeJson = {
-  ...mimocode,
+  ...nexus,
   theme: {
-    ...mimocode.theme,
+    ...nexus.theme,
     text: {
       dark: "darkStep12",
       light: "lightStep12",
@@ -143,7 +143,7 @@ export const DEFAULT_THEMES: Record<string, ThemeJson> = {
   nord,
   ["one-dark"]: onedark,
   ["osaka-jade"]: osakaJade,
-  mimocode,
+  nexus,
   orng,
   ["lucent-orng"]: lucentOrng,
   palenight,
@@ -191,7 +191,7 @@ const [store, setStore] = createStore<State>({
   themes: listThemes(),
   mode: "dark",
   lock: undefined,
-  active: "mimocode",
+  active: "nexus",
   ready: false,
 })
 
@@ -356,8 +356,8 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
         }
         draft.mode = mode
         draft.lock = lock
-        const active = props.plain ? "system" : config.theme ?? kv.get("theme", "mimocode")
-        draft.active = typeof active === "string" ? active : "mimocode"
+        const active = props.plain ? "system" : config.theme ?? kv.get("theme", "nexus")
+        draft.active = typeof active === "string" ? active : "nexus"
         draft.ready = false
       }),
     )
@@ -377,7 +377,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
             syncThemes()
           })
           .catch(() => {
-            setStore("active", "mimocode")
+            setStore("active", "nexus")
           }),
       ]).finally(() => {
         setStore("ready", true)
@@ -396,7 +396,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
             systemTheme = undefined
             syncThemes()
             if (store.active === "system") {
-              setStore("active", "mimocode")
+              setStore("active", "nexus")
             }
             return
           }
@@ -407,7 +407,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
           systemTheme = undefined
           syncThemes()
           if (store.active === "system") {
-            setStore("active", "mimocode")
+            setStore("active", "nexus")
           }
         })
     }
@@ -478,7 +478,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
         if (theme) return resolveTheme(theme, store.mode)
       }
 
-      return resolveTheme(store.themes.mimocode, store.mode)
+      return resolveTheme(store.themes.nexus, store.mode)
     })
 
     createEffect(() => {
@@ -535,14 +535,14 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
   },
 })
 
-const THEME_SCHEMA_URL = "https://mimo.xiaomi.com/mimocode/theme.json"
+const THEME_SCHEMA_URL = "https://github.com/arsenduisek/Nexus-Code/docs/theme.json"
 
 async function getCustomThemes() {
   const directories = [
     Global.Path.config,
     ...(await Array.fromAsync(
       Filesystem.up({
-        targets: [".mimocode"],
+        targets: [".nexus"],
         start: process.cwd(),
       }),
     )),
@@ -620,20 +620,20 @@ function generateSystem(colors: TerminalColors, mode: "dark" | "light"): ThemeJs
   const diffRemovedLineNumberBg = tint(diffContextBg, ansiColors.red, diffAlpha)
   const diffLineNumber = textMuted
 
-  const xiaomiOrange = RGBA.fromInts(255, 103, 0)
+  const geminiOrange = RGBA.fromInts(255, 103, 0)
 
   return {
     theme: {
-      // Primary colors using Xiaomi Orange
-      primary: xiaomiOrange,
-      secondary: xiaomiOrange,
-      accent: xiaomiOrange,
+      // Primary colors using Nexus Orange
+      primary: geminiOrange,
+      secondary: geminiOrange,
+      accent: geminiOrange,
 
       // Status colors using ANSI
       error: ansiColors.red,
       warning: ansiColors.yellow,
-      success: xiaomiOrange,
-      info: xiaomiOrange,
+      success: geminiOrange,
+      info: geminiOrange,
 
       // Text colors
       text: fg,

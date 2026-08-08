@@ -47,7 +47,7 @@ describe("ToolRegistry.tools: invocation style resolution", () => {
         expect(exec?.description).not.toContain("write(input:")
         expect(exec?.description).not.toContain("edit(input:")
         expect(yield* ids("anthropic/claude-sonnet-4-6")).not.toContain("exec")
-        expect(yield* ids("mimo-v2")).not.toContain("exec")
+        expect(yield* ids("nexus-v2")).not.toContain("exec")
       }),
     ),
     30000,
@@ -71,7 +71,7 @@ describe("ToolRegistry.tools: invocation style resolution", () => {
 
         expect(yield* ids("openai/gpt-5.4")).toContain("skill_search")
         expect(yield* ids("anthropic/claude-sonnet-4-6")).toContain("skill_search")
-        expect(yield* ids("mimo-v2")).toContain("skill_search")
+        expect(yield* ids("nexus-v2")).toContain("skill_search")
       }),
     ),
   )
@@ -124,10 +124,10 @@ describe("ToolRegistry.tools: invocation style resolution", () => {
   it.live.skip("masks multiedit for GPT models", () =>
     provideTmpdirInstance((dir) =>
       Effect.gen(function* () {
-        yield* Effect.promise(() => fs.mkdir(path.join(dir, ".mimocode/tool"), { recursive: true }))
+        yield* Effect.promise(() => fs.mkdir(path.join(dir, ".nexus/tool"), { recursive: true }))
         yield* Effect.promise(() =>
           Bun.write(
-            path.join(dir, ".mimocode/tool/multiedit.ts"),
+            path.join(dir, ".nexus/tool/multiedit.ts"),
             [
               "export default {",
               "  description: 'multi-edit files',",

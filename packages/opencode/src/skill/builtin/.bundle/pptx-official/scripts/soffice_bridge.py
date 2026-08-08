@@ -41,7 +41,7 @@ class BridgeError(RuntimeError):
 
 
 def _which_soffice() -> str:
-    bundled = os.environ.get("MIMO_SOFFICE")  # bundled runtime: use only when present, else fall through
+    bundled = os.environ.get("NEXUS_SOFFICE")  # bundled runtime: use only when present, else fall through
     if bundled and Path(bundled).is_file():
         return bundled
     for name in ("soffice", "libreoffice"):
@@ -110,7 +110,7 @@ def _rasterize(pdf_path: Path, out_dir: Path, image_ext: str, *,
     out_dir.mkdir(parents=True, exist_ok=True)
     file_ext = "jpg" if image_ext in ("jpg", "jpeg") else image_ext
 
-    if shutil.which("pdftoppm") is None and os.environ.get("MIMO_PYTHON"):
+    if shutil.which("pdftoppm") is None and os.environ.get("NEXUS_PYTHON"):
         # No Poppler, but a bundled Python (with pypdfium2 preinstalled) is available.
         return _rasterize_pypdfium2(pdf_path, out_dir, file_ext,
                                     dpi=dpi, first=first, last=last)
@@ -147,7 +147,7 @@ def _rasterize_pypdfium2(pdf_path: Path, out_dir: Path, file_ext: str, *,
     pypdfium2's zero-padded page numbers so lexicographic sorting matches page
     order and the naming convention matches the pdftoppm path.
     """
-    python_bin = os.environ["MIMO_PYTHON"]
+    python_bin = os.environ["NEXUS_PYTHON"]
     kept: list[Path] = []
     with tempfile.TemporaryDirectory(prefix="pypdfium2-render-") as scratch_str:
         scratch = Path(scratch_str)
@@ -160,7 +160,7 @@ def _rasterize_pypdfium2(pdf_path: Path, out_dir: Path, file_ext: str, *,
             raise BridgeError(
                 f"pypdfium2 fallback exited {result.returncode}: {result.stderr}\n"
                 "(is pypdfium2 with its pypdfium2_cli module available in the "
-                "MIMO_PYTHON interpreter?)")
+                "NEXUS_PYTHON interpreter?)")
 
         for page in sorted(scratch.glob(f"{pdf_path.stem}_*.{file_ext}")):
             digits = page.stem.rsplit("_", 1)[1]

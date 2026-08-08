@@ -9,9 +9,9 @@ import { testEffect } from "../lib/effect"
 import { withEnv } from "../lib/env"
 
 withEnv({
-  MIMOCODE_DISABLE_EXTERNAL_SKILLS: "true",
-  MIMOCODE_DISABLE_BUILTIN_SKILLS: undefined,
-  MIMOCODE_DISABLE_COMPOSE_SKILLS: undefined,
+  NEXUSCODE_DISABLE_EXTERNAL_SKILLS: "true",
+  NEXUSCODE_DISABLE_BUILTIN_SKILLS: undefined,
+  NEXUSCODE_DISABLE_COMPOSE_SKILLS: undefined,
 })
 
 const it = testEffect(Layer.mergeAll(Skill.defaultLayer, CrossSpawnSpawner.defaultLayer))

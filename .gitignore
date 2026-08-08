@@ -35,15 +35,15 @@ tsconfig.tsbuildinfo
 # Local agent harness state
 .claude/
 *.pid
-.mimo-worktrees
-.mimocde
+.nexus-worktrees
+.nexuscde
 
 # experiment run artifacts (regenerated per run, not source)
 experiment/*.log
 experiment/last-outcome.json
 /experiment
 
-/mimoapi/
+/nexusapi/
 /packages/opencode/src/ext
 
 # temp
@@ -51,9 +51,9 @@ temp/
 __pycache__
 Thumbs.db
 .playwright-cli/
-.mimocode/wiki
-.mimocode/wikis
-.mimocode/cache
+.nexus/wiki
+.nexus/wikis
+.nexus/cache
 
 # SDK codegen scratch: script/build.ts writes it, consumes it, then removes it.
 # A failed generation leaves it behind, where it is easy to commit by accident.

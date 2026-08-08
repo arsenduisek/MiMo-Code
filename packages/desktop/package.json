@@ -1,5 +1,5 @@
 {
-  "name": "@mimo-ai/desktop",
+  "name": "@nexus-code/desktop",
   "private": true,
   "version": "0.1.10",
   "type": "module",
@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "@lydell/node-pty": "catalog:",
-    "@mimo-ai/app": "workspace:*",
-    "@mimo-ai/ui": "workspace:*",
+    "@nexus-code/app": "workspace:*",
+    "@nexus-code/ui": "workspace:*",
     "@solid-primitives/i18n": "2.2.1",
     "@solid-primitives/storage": "catalog:",
     "@solidjs/meta": "catalog:",

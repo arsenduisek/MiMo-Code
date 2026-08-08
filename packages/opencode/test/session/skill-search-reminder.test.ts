@@ -7,7 +7,7 @@ import {
 import { Flag } from "../../src/flag/flag"
 
 describe("skillSearchReminder", () => {
-  const model = { id: "mimo-v2", name: "MiMo V2", api: { id: "mimo-v2" } }
+  const model = { id: "nexus-v2", name: "Nexus V2", api: { id: "nexus-v2" } }
 
   test("prompts skill search on the first user query", () => {
     const reminder = skillSearchReminder({ currentUserAt: 1_000 })
@@ -66,8 +66,8 @@ describe("skillSearchReminder", () => {
       },
     ]
 
-    const enabled = Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER
-    Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER = true
+    const enabled = Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER
+    Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER = true
     try {
       expect(
         skillSearchReminderForSession({
@@ -102,13 +102,13 @@ describe("skillSearchReminder", () => {
         }),
       ).toBeUndefined()
     } finally {
-      Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER = enabled
+      Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER = enabled
     }
   })
 
   test("does not inject when the reminder flag is disabled", () => {
-    const enabled = Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER
-    Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER = false
+    const enabled = Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER
+    Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER = false
     try {
       expect(
         skillSearchReminderForSession({
@@ -124,13 +124,13 @@ describe("skillSearchReminder", () => {
         }),
       ).toBeUndefined()
     } finally {
-      Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER = enabled
+      Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER = enabled
     }
   })
 
   test("does not inject for Claude or GPT models", () => {
-    const enabled = Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER
-    Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER = true
+    const enabled = Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER
+    Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER = true
     const input = {
       session: {},
       agent: { name: "build", mode: "primary" as const },
@@ -156,7 +156,7 @@ describe("skillSearchReminder", () => {
         }),
       ).toBeUndefined()
     } finally {
-      Flag.MIMOCODE_ENABLE_SKILL_SEARCH_REMINDER = enabled
+      Flag.NEXUSCODE_ENABLE_SKILL_SEARCH_REMINDER = enabled
     }
   })
 })

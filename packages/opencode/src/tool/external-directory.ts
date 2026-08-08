@@ -9,7 +9,7 @@ import type * as Tool from "./tool"
 import { Instance } from "../project/instance"
 import { ProjectID } from "../project/schema"
 import { assertMemoryWriteAllowed, assertAgentWriteSandbox } from "./memory-path-guard"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@nexus-code/shared/filesystem"
 
 type Kind = "file" | "directory"
 
@@ -128,7 +128,7 @@ export const assertWriteAllowed = Effect.fn("Tool.assertWriteAllowed")(function*
   })()
 
   // System-agent write sandbox: checkpoint-writer is memory-only, while
-  // dream/distill may also write <worktree>/.mimocode.
+  // dream/distill may also write <worktree>/.nexus.
   assertAgentWriteSandbox({
     target,
     agentName: ctx.agent,

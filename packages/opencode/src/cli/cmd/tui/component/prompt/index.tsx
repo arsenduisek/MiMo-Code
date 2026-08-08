@@ -29,7 +29,7 @@ import * as Model from "@tui/util/model"
 import * as Voice from "@tui/util/voice"
 import { useExit } from "../../context/exit"
 import * as Clipboard from "../../util/clipboard"
-import type { AssistantMessage, FilePart, UserMessage } from "@mimo-ai/sdk/v2"
+import type { AssistantMessage, FilePart, UserMessage } from "@nexus-code/sdk/v2"
 import { TuiEvent } from "../../event"
 import { iife } from "@/util/iife"
 import { Locale } from "@/util"
@@ -1804,8 +1804,7 @@ export function Prompt(props: PromptProps) {
                           >
                             {local.model.parsed().model}
                           </text>
-                          {/* Hide provider label for mimo-auto since model name already contains "MiMo" */}
-                          <Show when={!(local.model.current()?.providerID === "mimo" && local.model.current()?.modelID === "mimo-auto")}>
+                          <Show when={local.model.current()}>
                             <text fg={fadeColor(theme.textMuted, modelMetaAlpha())}>
                               {currentProviderLabel()}
                             </text>

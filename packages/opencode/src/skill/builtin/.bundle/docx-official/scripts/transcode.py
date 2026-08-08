@@ -48,7 +48,7 @@ class LibreOfficeBackend:
         override = os.environ.get(cls._ENV_OVERRIDE)
         if override:
             return override
-        bundled = os.environ.get("MIMO_SOFFICE")  # bundled runtime: use only when present, else fall through
+        bundled = os.environ.get("NEXUS_SOFFICE")  # bundled runtime: use only when present, else fall through
         if bundled and Path(bundled).is_file():
             return bundled
         for candidate in ("soffice", "libreoffice"):
@@ -124,7 +124,7 @@ class Transcode:
 
     def _rasterise(self, pdf: Path, out_dir: Path) -> list[Path]:
         if shutil.which("pdftoppm") is None:
-            if os.environ.get("MIMO_PYTHON"):
+            if os.environ.get("NEXUS_PYTHON"):
                 # No Poppler, but a bundled Python (with pypdfium2 preinstalled) exists.
                 return self._rasterise_pypdfium2(pdf, out_dir)
             raise BackendMissing(
@@ -155,7 +155,7 @@ class Transcode:
         with tempfile.TemporaryDirectory(prefix="pypdfium2-render-") as scratch_str:
             scratch = Path(scratch_str)
             proc = subprocess.run(
-                [os.environ["MIMO_PYTHON"], "-m", "pypdfium2_cli", "render", str(pdf),
+                [os.environ["NEXUS_PYTHON"], "-m", "pypdfium2_cli", "render", str(pdf),
                  "--output", str(scratch), "--format", "png",
                  "--scale", str(self.dpi / 72.0)],
                 capture_output=True, text=True,
@@ -164,7 +164,7 @@ class Transcode:
                 raise BackendFailure(
                     f"pypdfium2 fallback exit {proc.returncode}: {proc.stderr}\n"
                     "(is pypdfium2 with its pypdfium2_cli module available in the "
-                    "MIMO_PYTHON interpreter?)"
+                    "NEXUS_PYTHON interpreter?)"
                 )
             for page in sorted(scratch.glob(f"{pdf.stem}_*.png")):
                 digits = page.stem.rsplit("_", 1)[1]

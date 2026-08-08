@@ -19,7 +19,7 @@ import { Flag } from "@/flag/flag"
 import { isSystemSession } from "@/session/auto-dream"
 import semver from "semver"
 import { DialogProvider, useDialog } from "@tui/ui/dialog"
-import { DialogMimoLogin } from "@tui/component/dialog-mimo-login"
+import { DialogProvider as ProviderConnectDialog } from "@tui/component/dialog-provider"
 import { ErrorComponent } from "@tui/component/error-component"
 import { PluginRouteMissing } from "@tui/component/plugin-route-missing"
 import { ProjectProvider } from "@tui/context/project"
@@ -85,7 +85,7 @@ import { DialogModalities } from "./component/dialog-modalities"
 import { DialogContextLimit } from "./component/dialog-context-limit"
 
 function rendererConfig(_config: TuiConfig.Info, plainTerminal: boolean): CliRendererConfig {
-  const mouseEnabled = !plainTerminal && !Flag.MIMOCODE_DISABLE_MOUSE && (_config.mouse ?? true)
+  const mouseEnabled = !plainTerminal && !Flag.NEXUSCODE_DISABLE_MOUSE && (_config.mouse ?? true)
 
   return {
     externalOutputMode: "passthrough",
@@ -291,7 +291,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
     })
 
   useKeyboard((evt) => {
-    if (!Flag.MIMOCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT) return
+    if (!Flag.NEXUSCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT) return
     const sel = renderer.getSelection()
     if (!sel) return
 
@@ -339,17 +339,17 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
 
   // Update terminal window title based on current route and session
   createEffect(() => {
-    if (!terminalTitleEnabled() || Flag.MIMOCODE_DISABLE_TERMINAL_TITLE) return
+    if (!terminalTitleEnabled() || Flag.NEXUSCODE_DISABLE_TERMINAL_TITLE) return
 
     if (route.data.type === "home") {
-      renderer.setTerminalTitle("MiMoCode")
+      renderer.setTerminalTitle("NexusCode")
       return
     }
 
     if (route.data.type === "session") {
       const session = sync.session.get(route.data.sessionID)
       if (!session || SessionApi.isDefaultTitle(session.title)) {
-        renderer.setTerminalTitle("MiMoCode")
+        renderer.setTerminalTitle("NexusCode")
         return
       }
 
@@ -397,7 +397,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
   // question has actually been answered.
   const [orchestratorDirResolved, setOrchestratorDirResolved] = createSignal(false)
   onMount(() => {
-    if (!Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR) return
+    if (!Flag.NEXUSCODE_EXPERIMENTAL_ORCHESTRATOR) return
     void orchestratorDir()
       .then(setOrchestratorDirPath)
       .catch(() => {})
@@ -416,7 +416,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
     // feature is on, WAIT for the resolve to settle before deciding. Reading the
     // signal keeps this effect subscribed, so it re-runs (and re-decides) the
     // moment the path resolves.
-    if (Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR && !orchestratorDirResolved()) return
+    if (Flag.NEXUSCODE_EXPERIMENTAL_ORCHESTRATOR && !orchestratorDirResolved()) return
     // Resuming via -c inside the orchestrator workspace means the most-recent
     // root session IS the persistent orchestrator session. Enter Orchestrator
     // mode directly (mirrors -s landing in it) instead of resuming it as a
@@ -425,7 +425,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
     // this, -c resumes the orchestrator session in build mode and a later Tab
     // switch would blackscreen (route left on a session from the launch dir).
     if (
-      Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR &&
+      Flag.NEXUSCODE_EXPERIMENTAL_ORCHESTRATOR &&
       orchestratorDirPath() !== undefined &&
       sdk.directory === orchestratorDirPath()
     ) {
@@ -497,7 +497,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
     lastAgentName = name
     // Only act on the transition INTO orchestrator, and never re-enter while a
     // switch is already in flight. No-op entirely when the feature is off.
-    if (!Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR) return
+    if (!Flag.NEXUSCODE_EXPERIMENTAL_ORCHESTRATOR) return
     // Leaving orchestrator: drop the stashed id so a later non-orchestrator
     // submit can never accidentally target the orchestrator root.
     if (name !== "orchestrator") {
@@ -521,7 +521,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
     // gates the actual switch (race-free: uses the freshly-resolved dir, not the
     // async-populated signal).
     // A `-s <orchestratorSessionID>` launch from OUTSIDE orchestratorDir (the
-    // common case: user runs `mimo -s <id>` from a project dir) navigates the
+    // common case: user runs `nexus -s <id>` from a project dir) navigates the
     // route to that session (app.tsx onMount) and auto-restores agent=orchestrator
     // from the session's last message. That drives us here with sdk.directory !==
     // dir. We suppress the view, switch+bootstrap, then navigate ONCE directly to
@@ -593,7 +593,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
       title: t("tui.command.workflow.list.title"),
       value: "workflow.list",
       category: "session",
-      enabled: Flag.MIMOCODE_EXPERIMENTAL_WORKFLOW_TOOL,
+      enabled: Flag.NEXUSCODE_EXPERIMENTAL_WORKFLOW_TOOL,
       slash: {
         name: "workflows",
       },
@@ -814,7 +814,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
         name: "login",
       },
       onSelect: () => {
-        dialog.replace(() => <DialogMimoLogin />)
+        dialog.replace(() => <ProviderConnectDialog />)
       },
       category: "provider",
     },
@@ -826,7 +826,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
         name: "connect",
       },
       onSelect: () => {
-        dialog.replace(() => <DialogMimoLogin />)
+        dialog.replace(() => <ProviderConnectDialog />)
       },
       category: "provider",
     },
@@ -837,7 +837,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
         name: "logout",
       },
       onSelect: async () => {
-        await sdk.client.auth.remove({ providerID: "xiaomi" })
+        await sdk.client.auth.remove({ providerID: "gemini" })
         await sdk.client.instance.dispose()
         await sync.bootstrap()
         toast.show({ message: t("tui.command.logout.toast"), variant: "info" })
@@ -995,7 +995,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
         aliases: ["docs"],
       },
       onSelect: () => {
-        open("https://mimo.xiaomi.com/coder/docs").catch(() => {})
+        open("https://github.com/arsenduisek/Nexus-Code/coder/docs").catch(() => {})
         dialog.clear()
       },
       category: "system",
@@ -1456,7 +1456,7 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
         // When copy-on-mousedown is enabled, prefer copying an active selection;
         // fall through to paste when there is nothing selected.
         if (
-          Flag.MIMOCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT &&
+          Flag.NEXUSCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT &&
           Selection.copy(renderer, toast, t("tui.toast.copied_to_clipboard"))
         ) {
           evt.preventDefault()
@@ -1473,12 +1473,12 @@ function App(props: { onSnapshot?: () => Promise<string[]> }) {
         evt.stopPropagation()
       }}
       onMouseUp={
-        Flag.MIMOCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT
+        Flag.NEXUSCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT
           ? undefined
           : () => Selection.copy(renderer, toast, t("tui.toast.copied_to_clipboard"))
       }
     >
-      <Show when={Flag.MIMOCODE_SHOW_TTFD}>
+      <Show when={Flag.NEXUSCODE_SHOW_TTFD}>
         <TimeToFirstDraw />
       </Show>
       <Show when={ready() && !switchingOrchestrator()}>

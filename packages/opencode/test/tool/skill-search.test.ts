@@ -15,7 +15,7 @@ import { withEnv } from "../lib/env"
 
 // The compose-next invisibility test below needs the builtin bundle extracted,
 // and sibling files disable it, so force it back on for this file only.
-withEnv({ MIMOCODE_DISABLE_BUILTIN_SKILLS: undefined })
+withEnv({ NEXUSCODE_DISABLE_BUILTIN_SKILLS: undefined })
 
 const it = testEffect(
   Layer.mergeAll(ToolRegistry.defaultLayer, Agent.defaultLayer, Skill.defaultLayer, CrossSpawnSpawner.defaultLayer),
@@ -26,7 +26,7 @@ describe("tool.skill_search", () => {
     provideTmpdirInstance(
       (dir) =>
         Effect.gen(function* () {
-          const skill = path.join(dir, ".mimocode", "skill", "business-review")
+          const skill = path.join(dir, ".nexus", "skill", "business-review")
           yield* Effect.promise(() =>
             Bun.write(
               path.join(skill, "SKILL.md"),
@@ -139,7 +139,7 @@ Build the management presentation.
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Bun.write(
-              path.join(dir, ".mimocode", "skill", "quasar-analysis", "SKILL.md"),
+              path.join(dir, ".nexus", "skill", "quasar-analysis", "SKILL.md"),
               `---
 name: quasar-analysis
 description: Analyze quasar telemetry and operational metrics.
